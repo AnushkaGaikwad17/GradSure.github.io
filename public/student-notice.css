@@ -1,0 +1,27 @@
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f0f2f5;
+    text-align: center;
+}
+
+h1 {
+    color: #333;
+}
+
+.notice-item {
+    background: #fefefe;
+    margin: 10px auto;
+    padding: 15px;
+    max-width: 600px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    border-radius: 8px;
+}
+
+.notice-item h3 {
+    color: #007bff;
+    margin: 0;
+}
+
+.notice-item p {
+    color: #555;
+}

@@ -1,0 +1,116 @@
+<!-- <!DOCTYPE html>
+<html>
+<head>
+    <title>Student Chat</title>
+    <link rel="stylesheet" href="/styles_helpdesk.css">
+</head>
+<body>
+    <div class="chat-container">
+        <h2>Chat with Admin</h2>
+        <div class="chat-box" id="chat-box">
+            <!-- Chat messages will be dynamically loaded here -->
+        <!-- </div>
+        <form id="chat-form">
+            <input type="text" id="query" placeholder="Enter your query...">
+            <button type="submit">Send</button>
+        </form>
+    </div>
+
+    <script>
+        const studentId = '<%= studentId %>'; // Use the student's ID
+        const chatBox = document.getElementById('chat-box');
+
+        // Function to load chat messages
+        async function loadMessages() {
+            const response = await fetch(`/student_helpdesk/${studentId}/chat`);
+            const messages = await response.json();
+            chatBox.innerHTML = '';
+            messages.forEach(message => {
+                chatBox.innerHTML += `<div class="message"><strong>You:</strong> ${message.query}<br><strong>Admin:</strong> ${message.response || 'No response yet'}</div>`;
+            });
+        }
+
+        // Function to send a new query
+        document.getElementById('chat-form').addEventListener('submit', async (e) => {
+            e.preventDefault();
+            const query = document.getElementById('query').value;
+            await fetch(`/student_helpdesk/${studentId}/chat`, {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ query })
+            });
+            document.getElementById('query').value = '';
+            loadMessages();
+        });
+
+        // Load messages on page load
+        loadMessages();
+        setInterval(loadMessages, 5000); // Refresh chat every 5 seconds
+    </script>
+</body>
+</html> --> -->
+
+
+
+
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Student Helpdesk</title>
+    <link rel="stylesheet" href="/styles_helpdesk.css">
+</head>
+<body>
+    <div class="chat-container">
+        <h2>Chat with Admin</h2>
+        <div class="chat-box" id="chat-box">
+            <!-- Chat messages will be dynamically loaded here -->
+        </div>
+        <form id="chat-form">
+            <input type="text" id="query" placeholder="Enter your query...">
+            <button type="submit">Send</button>
+        </form>
+    </div>
+    <script src="student_helpdesk.js"></script>
+    <!-- <script>
+        const studentId = '<%= studentId %>'; // Use the student's ID from the server
+        const chatBox = document.getElementById('chat-box');
+
+        // Function to load chat messages
+        async function loadMessages() {
+            const response = await fetch(`/student_helpdesk/${studentId}/chat`);
+            if (!response.ok) {
+                console.error('Failed to fetch chat messages');
+                return;
+            }
+            const messages = await response.json();
+            chatBox.innerHTML = '';
+            messages.forEach(message => {
+                chatBox.innerHTML += `
+                    <div class="message">
+                        <strong>You:</strong> ${message.query}<br>
+                        <strong>Admin:</strong> ${message.response || 'No response yet'}
+                    </div>`;
+            });
+        }
+
+        // Function to send a new query
+        document.getElementById('chat-form').addEventListener('submit', async (e) => {
+            e.preventDefault();
+            const query = document.getElementById('query').value;
+            if (query.trim() === '') return;
+            
+            await fetch(`/student_helpdesk/${studentId}/chat`, {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ query })
+            });
+            document.getElementById('query').value = '';
+            loadMessages();
+        });
+
+        // Load messages on page load
+        loadMessages();
+        setInterval(loadMessages, 5000); // Refresh chat every 5 seconds
+    </script> -->
+</body>
+</html>

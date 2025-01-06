@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Verification</title>
+    <link rel="stylesheet" href="otp.css" />
+    <script defer src="otp.js"></script>
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
+</head>
+<body>
+    <div class="container step1">
+        <h2>Email Verification</h2>
+        <br />
+        <h4>Enter your email address</h4>
+        <br />
+        <p>You will receive an email with a one-time password after entering your password.</p>
+        <div class="form-group">
+            <input type="email" id="emailAddress" placeholder="Email Address" onkeyup="validateEmail(this.value)" />
+        </div>
+        <button class="nextButton disable">Next &rarr; </button>
+    </div>
+
+    <div class="container step2">
+        <h2>Password Verification</h2>
+        <br />
+        <h4>Enter your password</h4>
+        <div class="form-group">
+            <input type="password" id="password" placeholder="Password" onkeyup="validatePassword(this.value)" />
+        </div>
+        <button class="nextButton disable">Next &rarr; </button>
+    </div>
+
+    <div class="container step3">
+        <h2>OTP Verification</h2>
+        <br />
+        <h4>Enter the one-time password</h4>
+        <p>A one-time password has been sent to <span id="verifyEmail"></span></p>
+        <div class="otp-form">
+            <p>Enter the 4-digit code we sent to you via email</p>
+            <div class="otp-group">
+                <input type="number" max="9">
+                <input type="number" max="9">
+                <input type="number" max="9">
+                <input type="number" max="9">
+            </div>
+            <p>Not your email? / Didn't receive the code? <a href="javascript:void(0)" onclick="changeMyEmail()">Try Again</a></p>
+        </div>
+        <button class="nextButton verifyButton disable">Verify &rarr; </button>
+    </div>
+</body>
+</html>

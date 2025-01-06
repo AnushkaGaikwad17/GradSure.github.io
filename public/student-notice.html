@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Student Notices</title>
+    <link rel="stylesheet" href="student-notice.css">
+</head>
+<body>
+    <h1>Notice Board</h1>
+    
+    <!-- Notice Display Section for Students -->
+    <div id="student-notices"></div>
+    
+    <!-- JavaScript for Loading Notices -->
+    <script>
+        // Function to load all notices for student view
+        async function loadNotices() {
+            const response = await fetch('/notices');
+            const notices = await response.json();
+            const studentNotices = document.getElementById('student-notices');
+            
+            studentNotices.innerHTML = notices.map(notice => `
+                <div class="notice-item">
+                    <h3>${notice.title}</h3>
+                    <p>${notice.notice_text}</p>
+                    <p><small>Posted on: ${new Date(notice.created_at).toLocaleString()}</small></p>
+                </div>
+            `).join('');
+        }
+
+        // Load notices on page load
+        loadNotices();
+    </script>
+</body>
+</html>

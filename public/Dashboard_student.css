@@ -1,0 +1,151 @@
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    height: 100vh;
+}
+
+header {
+    background-color: #1e3c72;
+    color: white;
+    padding: 20px;
+    text-align: center;
+    position: relative;
+    width: 100%;
+}
+
+.menu-icon {
+    position: absolute;
+    top: 20px;
+    left: 50px;
+    cursor: pointer;
+    font-size: 24px;
+    color: white;
+}
+
+.logo {
+    width: 80px;
+    position: absolute;
+    top: 15px;
+    left: 90px;
+}
+
+h1 {
+    margin: 0;
+}
+
+.dashboard {
+    display: flex;
+    height: calc(100vh - 60px); /* Adjusting height to account for header */
+    transition: margin-left 0.3s;
+}
+
+.sidebar {
+    width: 250px;
+    background-color: #4169e1;
+    color: white;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding-top: 20px;
+    position: fixed;
+    top: 80px;
+    bottom: 0;
+    overflow-y: auto;
+    transform: translateX(-100%);
+    transition: transform 0.3s ease-in-out;
+}
+
+.sidebar.active {
+    transform: translateX(0);
+}
+
+.sidebar nav ul {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    width: 100%;
+}
+
+.sidebar nav ul li {
+    width: 100%;
+}
+
+.sidebar nav ul li a {
+    color: white;
+    text-decoration: none;
+    display: block;
+    padding: 15px 20px;
+    border-bottom: 1px solid #1e3c72;
+    text-align: center;
+}
+
+.sidebar nav ul li a:hover {
+    background-color: #1e3c72;
+}
+.content .profile:hover{
+    background-color: #6f9ef6;
+}
+.content .exam-registration:hover{
+    background-color: #f470d7;
+}
+.content .courses:hover{
+    background-color: #edf26f;
+}
+.content .helpdesk:hover{
+    background-color: #edf26f;
+}
+.content .timetable:hover{
+    background-color: #f36748;
+}
+.content .marks:hover{
+    background-color: #ed7fd9;
+}
+.content .reevaluation:hover{
+    background-color: #ed7fd9;
+}
+.content .analysis:hover{
+    background-color: #51f7c2;
+}
+.content .notices:hover{
+    background-color: #51f7c2;
+}
+.content .hall-ticket:hover{
+    background-color: #51f7c2;
+}
+.content {
+    margin-left: 0;
+    padding: 20px;
+    flex: 1;
+    overflow-y: auto;
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+    gap: 20px;
+    transition: margin-left 0.3s;
+}
+
+.content.active {
+    margin-left: 250px;
+}
+
+.block {
+    background-color: #ffffff;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    padding: 20px;
+    text-align: center;
+}
+
+.profile { background-color: #e6f7ff; }
+.marks { background-color: #f7e6ff; }
+.analysis { background-color: #e6ffe6; }
+.courses { background-color: #fff7e6; }
+.timetable { background-color: #ffe6e6; }
+.notices { background-color: #e6ffe6; }
+.exam-registration { background-color: #fbbeed; }
+.reevaluation { background-color: #f7e6ff; }
+.hall-ticket { background-color: #e6ffe6; }
+.helpdesk { background-color: #fff7e6; }

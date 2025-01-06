@@ -1,0 +1,191 @@
+<!-- <!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login Page</title>
+    <style>
+        /* Add basic styling */
+        body {
+            font-family: Arial, sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background-color: #6121a6;
+        }
+        .login-container {
+            background: #fff;
+            padding: 20px;
+            border-radius: 5px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            width: 300px;
+        }
+        .login-container input {
+            width: 100%;
+            padding: 10px;
+            margin: 10px 0;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+        }
+        .login-container button {
+            width: 100%;
+            padding: 10px;
+            background-color: #007bff;
+            color: #fff;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        .login-container button:hover {
+            background-color: #0056b3;
+        }
+    </style>
+</head>
+<body>
+    <div class="login-container">
+        <h2>Login</h2>
+        <form id="login-form">
+            <input type="email" id="email" placeholder="Email" required>
+            <input type="password" id="password" placeholder="Password" required>
+            <button type="submit">Login</button>
+        </form>
+    </div>
+
+    <script>
+        document.getElementById('login-form').addEventListener('submit', function(event) {
+            event.preventDefault(); // Prevent form from submitting the default way
+
+            const email = document.getElementById('email').value;
+            const password = document.getElementById('password').value;
+
+            fetch('/login', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({ email, password }),
+            })
+            .then(response => response.json())
+            .then(data => {
+                if (data.success) {
+                    window.location.href = 'Dashboard_admin.html'; // Redirect to the next page
+                } else {
+                    alert('Invalid email or password');
+                }
+            })
+            .catch(error => {
+                console.error('Error:', error);
+            });
+        });
+    </script>
+</body>
+</html> -->
+<!-- 
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Verification</title>
+    <link rel="stylesheet" href="otp.css" />
+    <script defer src="otp.js"></script>
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
+</head>
+<body>
+    <div class="container step1">
+        <h2>Email Verification</h2>
+        <br />
+        <h4>Enter your email address</h4>
+        <br />
+        <p>You will receive an email with a one-time password after entering your password.</p>
+        <div class="form-group">
+            <input type="email" id="emailAddress" placeholder="Email Address" onkeyup="validateEmail(this.value)" />
+        </div>
+        <button class="nextButton disable">Next &rarr; </button>
+    </div>
+
+    <div class="container step2">
+        <h2>Password Verification</h2>
+        <br />
+        <h4>Enter your password</h4>
+        <div class="form-group">
+            <input type="password" id="password" placeholder="Password" onkeyup="validatePassword(this.value)" />
+        </div>
+        <button class="nextButton disable">Next &rarr; </button>
+    </div>
+
+    <div class="container step3">
+        <h2>OTP Verification</h2>
+        <br />
+        <h4>Enter the one-time password</h4>
+        <p>A one-time password has been sent to <span id="verifyEmail"></span></p>
+        <div class="otp-form">
+            <p>Enter the 4-digit code we sent to you via email</p>
+            <div class="otp-group">
+                <input type="number" max="9">
+                <input type="number" max="9">
+                <input type="number" max="9">
+                <input type="number" max="9">
+            </div>
+            <p>Not your email? / Didn't receive the code? <a href="javascript:void(0)" onclick="changeMyEmail()">Try Again</a></p>
+        </div>
+        <button class="nextButton verifyButton disable">Verify &rarr; </button>
+    </div>
+</body>
+</html>
+ -->
+
+
+ <!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Admin Verification</title>
+    <link rel="stylesheet" href="admin_otp.css" />
+    <script defer src="admin_login.js"></script>
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
+</head>
+<body>
+    <div class="container step1">
+        <h2>Email Verification</h2>
+        <br />
+        <h4>Enter your email address</h4>
+        <br />
+        <p>You will receive an email with a one-time password after entering your password.</p>
+        <div class="form-group">
+            <input type="email" id="emailAddress" placeholder="Email Address" onkeyup="validateEmailadmin(this.value)" />
+        </div>
+        <button class="nextButton disable">Next &rarr; </button>
+    </div>
+
+    <div class="container step2">
+        <h2>Password Verification</h2>
+        <br />
+        <h4>Enter your password</h4>
+        <div class="form-group">
+            <input type="password" id="password" placeholder="Password" onkeyup="checkPasswordadmin()" />
+        </div>
+        <button class="nextButton disable">Next &rarr; </button>
+    </div>
+
+    <div class="container step3">
+        <h2>OTP Verification</h2>
+        <br />
+        <h4>Enter the one-time password</h4>
+        <p>A one-time password has been sent to <span id="verifyEmail"></span></p>
+        <div class="otp-form">
+            <p>Enter the 4-digit code we sent to you via email</p>
+            <div class="otp-group">
+                <input type="number" max="9">
+                <input type="number" max="9">
+                <input type="number" max="9">
+                <input type="number" max="9">
+            </div>
+            <p>Not your email? / Didn't receive the code? <a href="javascript:void(0)" onclick="changeMyEmail()">Try Again</a></p>
+        </div>
+        <button class="nextButton verifyButton disable">Verify &rarr; </button>
+    </div>
+</body>
+</html>

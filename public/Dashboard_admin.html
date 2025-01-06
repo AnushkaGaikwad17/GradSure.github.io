@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="Dashboard_admin.css">
+    <title>Admin Dashboard - GradSure</title>
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+</head>
+<body>
+    <header>
+        <i class="material-icons menu-icon">menu</i>
+        <img src="gradsure-high-resolution-logo.png" alt="GradSure Logo" class="logo">
+        <h1>GradSure - Admin Dashboard</h1>
+    </header>
+    <div class="dashboard">
+        <div class="sidebar">
+            <nav>
+                <ul>
+                    <li><a href="admin_newStudent.html">Add new students</a></li>
+                    <!-- <li><a href="marks.html">New Admission</a></li>
+                    <li><a href="analysis.html">Marks Entry</a></li>
+                    <li><a href="courses.html">Courses</a></li>
+                    <li><a href="timetable.html">Exam Timetable</a></li>
+                    <li><a href="notices.html">Notices</a></li> -->
+                    <li><a href="registered-students.html">Registered students</a></li>
+                     <li><a href="admin_heldesk.html">Helpdesk</a></li>
+                    <li><a href="abc1_payment.html">Payments Done</a></li>
+                    <li><a href="admin-notice.html">Notices</a></li>
+                    <li><a href="login-options.html">Logout</a></li>
+                </ul>
+            </nav>
+        </div>
+        <div class="content">
+            <!-- <button class="block profile" onclick="location.href='profile.html'">
+                <h2>Profile</h2>
+                <p>View and update your profile information.</p>
+            </button> -->
+            <!-- <button class="block marks" onclick="location.href='marks.html'">
+                <h2>Semester Marks</h2>
+                <p>Check your marks for the semester.</p>
+            </button> -->
+            <!-- <button class="block analysis" onclick="location.href='analysis.html'">
+                <h2>Result Analysis</h2>
+                <p>Analyze your results and performance trends.</p>
+            </button>
+            <button class="block courses" onclick="location.href='courses.html'">
+                <h2>Courses</h2>
+                <p>View and enroll in available courses.</p>
+            </button>-->
+            <button class="block new_student" onclick="location.href='admin_newStudent.html'">
+                <h2>New Student</h2>
+                <p>add new students</p>
+            </button>
+          <button class="block payment" onclick="location.href='abc1_payment.html'">
+                <h2>payment from Razorpay</h2>
+                <p>View all payments</p>
+            </button> 
+            <button class="block exam-registration" onclick="location.href='registered-students.html'">
+                <h2>Registered Students</h2>
+                <p>View Registrations For Exams.</p>
+            </button>
+            <!-- <button class="block payment" onclick="location.href='admin_payment.html'">
+                <h2>Payment Done</h2>
+                <p>Check payment completion.</p>
+            </button> -->
+            <button class="block helpdesk" onclick="location.href='admin_heldesk.html'">
+                <h2>Helpdesk</h2>
+                <p>Check student queries here</p>
+            </button> 
+            <button class="block notice" onclick="location.href='admin-notice.html'">
+                <h2>Notices</h2>
+                <p>post notices for students</p>
+            </button> 
+        </div>
+    </div>
+
+    <script>
+        const menuIcon = document.querySelector(".menu-icon");
+        const sidebar = document.querySelector(".sidebar");
+        const content = document.querySelector(".content");
+
+        menuIcon.addEventListener("click", () => {
+            sidebar.classList.toggle("active");
+            content.classList.toggle("active");
+        });
+    </script>
+</body>
+</html>

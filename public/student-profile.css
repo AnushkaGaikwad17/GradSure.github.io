@@ -1,0 +1,76 @@
+/* student-profile.css */
+
+body {
+    font-family: Arial, sans-serif;
+    background-color: #dfcfa5;
+    margin: 0;
+    padding: 20px;
+}
+.dashboard-button {
+    display: inline-block; /* Allows margin auto to work for centering */
+    background-color: #041305; /* Button color */
+    color: white; /* Text color */
+    border: none; /* Remove default border */
+    padding: 15px 30px; /* Increased padding for a wider button */
+    font-size: 18px; /* Increased font size */
+    font-weight: bold; /* Make text bold */
+    border-radius: 5px; /* Rounded corners */
+    cursor: pointer; /* Pointer cursor on hover */
+    transition: background-color 0.3s; /* Smooth transition for hover effect */
+    margin: 20px auto; /* Center the button */
+    text-align: center; /* Center the text */
+}
+
+.dashboard-button:hover {
+    background-color: #45a049; /* Darker shade on hover */
+}
+
+h1 {
+    text-align: center;
+    color: #6613da;
+    margin-bottom: 30px;
+    font-size: 48px; /* Increased font size */
+    letter-spacing: 3px; /* Added letter spacing */
+    text-transform: uppercase; /* Make text uppercase */
+    font-weight: bold; /* Bold font */
+    background: linear-gradient(90deg, #651c96, #962eca); /* Gradient background */
+    -webkit-background-clip: text; /* Clip the background to the text */
+    -webkit-text-fill-color: transparent; /* Fill text with gradient */
+    padding: 10px; /* Padding around the text */
+    border-radius: 8px; /* Rounded corners */
+}
+
+.container {
+    max-width: 900px;
+    margin: auto;
+    background: white;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+}
+
+.profile {
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+}
+
+.info-box {
+    flex: 1 1 calc(45% - 20px);
+    margin: 10px;
+    padding: 20px;
+    background: #ffffff;
+    border-radius: 8px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+.info-box p {
+    margin: 10px 0;
+    line-height: 1.6;
+}
+
+.failed-courses {
+    flex-basis: 100%;
+    background-color: #7be0eb;
+    border: 1px solid #75e2f0;
+}

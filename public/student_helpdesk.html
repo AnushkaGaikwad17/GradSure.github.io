@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Student Helpdesk</title>
+    <link rel="stylesheet" href="student_helpdesk.css">
+</head>
+<body>
+    <h1>Student Helpdesk</h1>
+    <form id="queryForm">
+        <input type="text" id="title" placeholder="Query Title" required><br>
+        <textarea id="content" placeholder="Describe your query" required></textarea><br>
+        <button type="submit">Submit Query</button>
+    </form>
+
+    <h2>Your Queries</h2>
+    <div id="query-history"></div>
+
+    <script>
+        async function loadQueries() {
+            try {
+                const response = await fetch('/student-queries');
+                if (!response.ok) throw new Error('Network response was not ok');
+                const queries = await response.json();
+                document.getElementById('query-history').innerHTML = queries.map(query => `
+                    <div class="query-item">
+                        <h3>${query.title}</h3>
+                        <p>${query.content}</p>
+                        <p><small>Posted on: ${new Date(query.created_at).toLocaleString()}</small></p>
+                        <p><strong>Admin Response:</strong> ${query.response || "No response yet"}</p>
+                        ${query.auto_replied ? '<span class="auto-replied">Auto-replied</span>' : ''}
+                    </div>
+                `).join('');
+            } catch (error) {
+                console.error('Failed to load queries:', error);
+            }
+        }
+
+        document.getElementById('queryForm').addEventListener('submit', async (e) => {
+            e.preventDefault();
+            const title = document.getElementById('title').value;
+            const content = document.getElementById('content').value;
+
+            try {
+                const response = await fetch('/helpdesk-queries', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ title, content, student_email: 'student@example.com' }) // Replace with actual student email
+                });
+                if (!response.ok) throw new Error('Network response was not ok');
+
+                // Clear form inputs
+                document.getElementById('title').value = '';
+                document.getElementById('content').value = '';
+
+                // Load queries again to show updated history
+                loadQueries();
+            } catch (error) {
+                console.error('Error posting query:', error);
+            }
+        });
+
+        loadQueries();  // Load existing queries on page load
+    </script>
+</body>
+</html>

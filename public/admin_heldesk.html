@@ -1,0 +1,173 @@
+<!-- <!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Admin Helpdesk</title>
+    <link rel="stylesheet" href="admin_helpdesk.css">
+</head>
+<body>
+    <h1>Admin Helpdesk</h1>
+    <div id="query-history"></div>
+
+    <script>
+        async function loadQueries() {
+            try {
+                const response = await fetch('/admin-queries');
+                if (!response.ok) throw new Error('Network response was not ok');
+                const queries = await response.json();
+                document.getElementById('query-history').innerHTML = queries.map(query => `
+                    <div class="query-item">
+                        <h3>${query.title} (${query.student_email})</h3>
+                        <p>${query.content}</p>
+                        <p><small>Posted on: ${new Date(query.created_at).toLocaleString()}</small></p>
+                        <div class="response">
+                            <strong>Admin Response:</strong>
+                            <p>${query.response || "No response yet"}</p>
+                            <textarea placeholder="Type your response here" id="response-${query.id}"></textarea>
+                            <button onclick="respondToQuery(${query.id})">Send Response</button>
+                        </div>
+                        ${query.auto_replied ? '<span class="auto-replied">Auto-replied</span>' : ''}
+                    </div>
+                `).join('');
+            } catch (error) {
+                console.error('Failed to load queries:', error);
+            }
+        }
+
+        async function respondToQuery(id) {
+            const response = document.getElementById(`response-${id}`).value;
+            if (!response) {
+                alert('Please provide a response before submitting.');
+                return;
+            }
+
+            try {
+                const res = await fetch(`/helpdesk-queries/${id}`, {
+                    method: 'PUT',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ response })
+                });
+                if (!res.ok) throw new Error('Failed to update query');
+
+                // Clear the response textarea
+                document.getElementById(`response-${id}`).value = '';
+                loadQueries();  // Reload queries to show updated responses
+            } catch (error) {
+                console.error('Error responding to query:', error);
+            }
+        }
+
+        loadQueries();  // Load queries on page load
+    </script>
+</body>
+</html> -->
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Admin Helpdesk</title>
+    <link rel="stylesheet" href="admin_helpdesk.css">
+</head>
+<body>
+    <h1>Admin Helpdesk</h1>
+    <div id="query-history"></div>
+
+    <script>
+        async function loadQueries() {
+            try {
+                const response = await fetch('/admin-queries');
+                if (!response.ok) throw new Error('Network response was not ok');
+                const queries = await response.json();
+                document.getElementById('query-history').innerHTML = queries.map(query => `
+                    <div class="query-item">
+                        <h3>${query.title} (Submitted by: ${query.student_email})</h3>
+                        <p>${query.content}</p>
+                        <p><small>Posted on: ${new Date(query.created_at).toLocaleString()}</small></p>
+                        <div class="response">
+                            <strong>Admin Response:</strong>
+                            <p>${query.response || "No response yet"}</p>
+                            <textarea placeholder="Type your response here" id="response-${query.id}"></textarea>
+                            <button onclick="respondToQuery(${query.id})">Send Response</button>
+                        </div>
+                        ${query.auto_replied ? '<span class="auto-replied">Auto-replied</span>' : ''}
+                    </div>
+                `).join('');
+            } catch (error) {
+                console.error('Failed to load queries:', error);
+            }
+        }
+
+        async function respondToQuery(id) {
+            const response = document.getElementById(`response-${id}`).value;
+            if (!response) {
+                alert('Please provide a response before submitting.');
+                return;
+            }
+
+            try {
+                const res = await fetch(`/helpdesk-queries/${id}`, {
+                    method: 'PUT',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ response })
+                });
+                if (!res.ok) throw new Error('Failed to update query');
+
+                // Clear the response textarea
+                document.getElementById(`response-${id}`).value = '';
+                loadQueries();  // Reload queries to show updated responses
+            } catch (error) {
+                console.error('Error responding to query:', error);
+            }
+        }
+
+        loadQueries();  // Load queries on page load
+    </script>
+</body>
+</html>
+
+
+
+
+
+
+
+
+

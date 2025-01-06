@@ -1,0 +1,75 @@
+<!-- <!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Exam Registration - GradSure</title>
+    <link rel="stylesheet" href="style_exam.css"> 
+</head>
+<body>
+    <header>
+        
+    </header>
+    <div class="form-container">
+        <h2>Exam Registration</h2>
+        <p>Name: <span id="student-name"></span></p>
+        <p>Roll Number: <span id="roll-number"></span></p>
+        <p>Branch: <span id="branch"></span></p>
+        <div>
+            <label for="failed-courses">Failed Courses:</label>
+            <div id="failed-courses"></div> 
+        </div>
+        <div>
+            <label>Carry Forward:</label>
+            <input type="radio" name="carry-forward" value="yes"> Yes
+            <input type="radio" name="carry-forward" value="no"> No
+        </div>
+      <button id="register-exam">Register for Exam</button>
+        <button id="next-page">Proceed to Payment</button> 
+       
+    </div>
+    <script src="exam-registration.js"></script> 
+</body>
+</html> -->
+
+
+
+
+
+
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Exam Registration - GradSure</title>
+    <link rel="stylesheet" href="style_exam.css"> <!-- Add your CSS file -->
+</head>
+<body>
+    <header>
+        <!-- <h1>GradSure - Exam Registration</h1> -->
+    </header>
+    <div class="form-container">
+        <h2>Exam Registration</h2>
+        <p>Name: <span id="student-name"></span></p>
+        <p>Roll Number: <span id="roll-number"></span></p>
+        <p>Branch: <span id="branch"></span></p>
+        <p><b>Select course(s) that you want register for.</b></p>
+        <div>
+            <label for="failed-courses">Failed Courses:</label>
+            <div id="failed-courses"></div> <!-- This will be populated with checkboxes -->
+        </div>
+        <p><b>Select YES if you want to appear for unit test 1 and 2 also with end sem</b></p>
+        <p>it is mandatory to select one of this</p>
+        <div>
+            <label>Carry Forward:</label>
+            <input type="radio" name="carry-forward" value="yes"> Yes
+            <input type="radio" name="carry-forward" value="no"> No
+        </div>
+        <button id="register-exam">Register for Exam</button>
+        <button id="next-page">Proceed to Payment</button> <!-- New button for proceeding -->
+    </div>
+    <script src="exam-registration.js"></script> <!-- Add your JS file -->
+</body>
+</html>

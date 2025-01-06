@@ -1,0 +1,506 @@
+<!-- <!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Admin Payment Dashboard</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 0;
+      padding: 0;
+      background-color: #f9f9f9;
+    }
+    .container {
+      margin: 20px auto;
+      width: 90%;
+      max-width: 1000px;
+      background-color: #fff;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+      padding: 20px;
+      border-radius: 8px;
+    }
+    h1 {
+      text-align: center;
+      color: #2c3e50;
+    }
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-top: 20px;
+    }
+    th, td {
+      padding: 12px;
+      text-align: center;
+      border-bottom: 1px solid #ddd;
+    }
+    th {
+      background-color: #007BFF;
+      color: white;
+    }
+    tr:nth-child(even) {
+      background-color: #f2f2f2;
+    }
+    tr:hover {
+      background-color: #f1f1f1;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>Admin Payment Dashboard</h1>
+    <table>
+      <thead>
+        <tr>
+          <th>Email</th>
+          <th>Name</th>
+          <th>Total Paid (₹)</th>
+          <th>Date of Payment</th>
+        </tr>
+      </thead>
+      <tbody id="payment-table-body">
+
+      </tbody>
+    </table>
+  </div>
+
+  <script>
+    document.addEventListener('DOMContentLoaded', async () => {
+      try {
+       
+        const response = await fetch('/admin/payments');
+        const payments = await response.json();
+
+        const tableBody = document.getElementById('payment-table-body');
+
+       
+        payments.forEach(payment => {
+          const row = `
+            <tr>
+              <td>${payment.email}</td>
+              <td>${payment.name}</td>
+              <td>₹${payment.cost}</td>
+              <td>${new Date(payment.payment_date).toLocaleDateString()}</td>
+            </tr>
+          `;
+          tableBody.insertAdjacentHTML('beforeend', row);
+        });
+      } catch (error) {
+        console.error('Error fetching payment data:', error);
+        alert('Failed to load payment data.');
+      }
+    });
+  </script>
+</body>
+</html> -->
+
+
+<!-- 
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Payment Records</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f9;
+            margin: 0;
+            padding: 0;
+        }
+
+        .container {
+            width: 90%;
+            max-width: 1200px;
+            margin: 20px auto;
+        }
+
+        h1 {
+            text-align: center;
+            margin-bottom: 20px;
+            color: #333;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            background-color: white;
+        }
+
+        th, td {
+            border: 1px solid #ddd;
+            text-align: left;
+            padding: 8px;
+        }
+
+        th {
+            background-color: #4caf50;
+            color: white;
+        }
+
+        tr:nth-child(even) {
+            background-color: #f2f2f2;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Payment Records</h1>
+        <table>
+            <thead>
+                <tr>
+                    <th>Name</th>
+                    <th>Email</th>
+                    <th>Amount Paid (INR)</th>
+                    <th>Payment Method</th>
+                </tr>
+            </thead>
+            <tbody id="payment-table-body">
+             
+            </tbody>
+        </table>
+    </div>
+
+    <script>
+        
+        document.addEventListener('DOMContentLoaded', () => {
+            const tableBody = document.getElementById('payment-table-body');
+
+        
+            fetch('/payments')
+                .then(response => response.json())
+                .then(payments => {
+                    if (payments.length === 0) {
+                        const row = document.createElement('tr');
+                        row.innerHTML = `<td colspan="4">No payments found</td>`;
+                        tableBody.appendChild(row);
+                    } else {
+                        payments.forEach(payment => {
+                            const row = document.createElement('tr');
+
+                            row.innerHTML = `
+                                <td>${payment.name || 'N/A'}</td>
+                                <td>${payment.email || 'N/A'}</td>
+                                <td>${payment.amount || 0}</td>
+                                <td>${payment.method || 'N/A'}</td>
+                            `;
+
+                            tableBody.appendChild(row);
+                        });
+                    }
+                })
+                .catch(error => {
+                    console.error('Error fetching payment data:', error);
+                    const row = document.createElement('tr');
+                    row.innerHTML = `<td colspan="4">Unable to fetch payment data</td>`;
+                    tableBody.appendChild(row);
+                });
+        });
+    </script>
+</body>
+</html>
+ -->
+
+
+
+<!-- 
+ <!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Payment Records</title>
+</head>
+<body>
+  <h1>Payment Records</h1>
+  <table id="payments-table">
+    <thead>
+      <tr>
+        <th>Name</th>
+        <th>Email</th>
+        <th>Amount Paid (INR)</th>
+        <th>Payment Status</th>
+      </tr>
+    </thead>
+    <tbody>
+      <! Payments will be dynamically inserted here -->
+    <!-- </tbody>
+  </table>
+
+  <script> -->
+   <!-- // Fetch and display payments dynamically
+   function fetchPayments() {
+      fetch('/payments')
+        .then(response => response.json())
+        .then(data => {
+          const tableBody = document.getElementById('payments-table').querySelector('tbody');
+          tableBody.innerHTML = ''; // Clear previous results
+
+          if (data.length === 0) {
+            tableBody.innerHTML = '<tr><td colspan="4">No payments found</td></tr>';
+            return;
+          }
+
+          data.forEach(payment => {
+            const row = document.createElement('tr');
+            row.innerHTML = `
+              <td>${payment.name}</td>
+              <td>${payment.email}</td>
+              <td>${payment.amount}</td>
+              <td>${payment.method}</td>
+            `;
+            tableBody.appendChild(row);
+          });
+        })
+        .catch(error => console.error('Error fetching payments:', error));
+    }
+
+    // Call fetchPayments when the page loads
+    document.addEventListener('DOMContentLoaded', fetchPayments);
+
+  </script>
+</body>
+</html> --> 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!-- 
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Payment Records</title>
+
+</head>
+<body>
+  <h1>Payment Records</h1>
+  <table id="payments-table">
+    <thead>
+      <tr>
+        <th>Name</th>
+        <th>Email</th>
+        <th>Amount Paid (INR)</th>
+        <th>Payment Status</th>
+      </tr>
+    </thead>
+    <tbody>
+     
+    </tbody>
+  </table>
+
+  <script>
+    // Fetch and display payments dynamically
+    function fetchPayments() {
+      fetch('/payments')
+        .then(response => response.json())
+        .then(data => {
+          const tableBody = document.getElementById('payments-table').querySelector('tbody');
+          tableBody.innerHTML = ''; // Clear previous results
+
+          if (data.length === 0) {
+            tableBody.innerHTML = '<tr><td colspan="4">No payments found</td></tr>';
+            return;
+          }
+
+          data.forEach(payment => {
+            const row = document.createElement('tr');
+            row.innerHTML = `
+              <td>${payment.name}</td>
+              <td>${payment.email}</td>
+              <td>${payment.amount}</td>
+              <td>${payment.payment_status}</td>
+            `;
+            tableBody.appendChild(row);
+          });
+        })
+        .catch(error => console.error('Error fetching payments:', error));
+    }
+
+    
+    document.addEventListener('DOMContentLoaded', fetchPayments);
+  </script>
+</body>
+</html> -->
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Payment Records</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 0;
+      padding: 0;
+      background-color: #f9f9f9;
+    }
+
+    h1 {
+      text-align: center;
+      margin: 20px 0;
+      color: #333;
+    }
+
+    .container {
+      max-width: 900px;
+      margin: 20px auto;
+      padding: 20px;
+      background: #fff;
+      border-radius: 8px;
+      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    }
+
+    .search-bar {
+      margin-bottom: 20px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .search-bar input {
+      width: 100%;
+      max-width: 400px;
+      padding: 10px;
+      border: 1px solid #ddd;
+      border-radius: 5px;
+      font-size: 16px;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+    }
+
+    table th, table td {
+      text-align: left;
+      padding: 10px;
+    }
+
+    table th {
+      background-color: #4CAF50;
+      color: white;
+    }
+
+    table tr:nth-child(even) {
+      background-color: #f2f2f2;
+    }
+
+    table tr:hover {
+      background-color: #ddd;
+    }
+
+    .no-data {
+      text-align: center;
+      color: #888;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>Payment Records</h1>
+    <div class="search-bar">
+      <input type="text" id="search" placeholder="Search by name or email" oninput="filterTable()">
+    </div>
+    <table id="payments-table">
+      <thead>
+        <tr>
+          <th>Name</th>
+          <th>Email</th>
+          <th>Amount Paid (INR)</th>
+          <th>Date</th>
+          <th>Payment Status</th>
+         
+        </tr>
+      </thead>
+      <tbody>
+        <!-- Payments will be dynamically inserted here -->
+      </tbody>
+    </table>
+  </div>
+
+  <script>
+    let paymentData = [];
+
+    // Fetch and display payments dynamically
+    function fetchPayments() {
+      fetch('/payments')
+        .then(response => response.json())
+        .then(data => {
+          paymentData = data;
+          renderTable(data);
+        })
+        .catch(error => console.error('Error fetching payments:', error));
+    }
+
+    // Render the table with data
+    function renderTable(data) {
+      const tableBody = document.getElementById('payments-table').querySelector('tbody');
+      tableBody.innerHTML = ''; // Clear previous results
+
+      if (data.length === 0) {
+        tableBody.innerHTML = '<tr><td colspan="4" class="no-data">No payments found</td></tr>';
+        return;
+      }
+
+      data.forEach(payment => {
+        const row = document.createElement('tr');
+        row.innerHTML = `
+          <td>${payment.name}</td>
+          <td>${payment.email}</td>
+          <td>${payment.amount}</td>
+         <td>${payment.createdAt}</td>
+          <td>${payment.payment_status || 'Payment Done'}</td>
+        `;
+        tableBody.appendChild(row);
+      });
+    }
+
+    // Filter table based on search input
+    function filterTable() {
+      const searchValue = document.getElementById('search').value.toLowerCase();
+      const filteredData = paymentData.filter(payment =>
+        payment.name.toLowerCase().includes(searchValue) ||
+        payment.email.toLowerCase().includes(searchValue)
+      );
+      renderTable(filteredData);
+    }
+
+    // Call fetchPayments when the page loads
+    document.addEventListener('DOMContentLoaded', fetchPayments);
+  </script>
+</body>
+</html>

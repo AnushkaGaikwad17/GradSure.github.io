@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Exam Registration Portal</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <h1>Exam Registration Portal</h1>
+    
+    <div id="student-list">
+        <!-- Student list will be populated here by JavaScript -->
+    </div>
+    
+    <div id="registration-form" style="display:none;">
+        <h2>Register for Exams</h2>
+        <p id="student-info"></p> <!-- Student's name and roll number will appear here -->
+        <form onsubmit="submitRegistration(); return false;">
+            <label for="courses">Select Courses:</label>
+            <select id="courses" multiple>
+                <!-- Courses will be populated here by JavaScript -->
+            </select>
+            <button type="submit">Submit</button>
+        </form>
+    </div>
+
+    <script src="db.js"></script>
+</body>
+</html>

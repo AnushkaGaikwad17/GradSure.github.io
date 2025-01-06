@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Notice Board</title>
+    <link rel="stylesheet" href="admin-notice.css">
+</head>
+<body>
+    <h1>Notice Board - Admin</h1>
+    
+    <!-- Notice Form for Admin -->
+    <div class="notice-form">
+        <input type="text" id="title" placeholder="Notice Title">
+        <textarea id="content" placeholder="Write your notice here..."></textarea>
+        <button onclick="postNotice()">Post Notice</button>
+    </div>
+    
+    <!-- Notice History Section -->
+    <h2>Notice History</h2>
+    <div id="notice-history"></div>
+    
+    <!-- JavaScript for Admin Actions -->
+    <script>
+        // Function to post a notice
+        async function postNotice() {
+            const title = document.getElementById('title').value;
+            const content = document.getElementById('content').value;
+
+            const response = await fetch('/notices', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ title, content })
+            });
+            if (response.ok) {
+                document.getElementById('title').value = '';
+                document.getElementById('content').value = '';
+                loadNotices();
+            }
+        }
+
+        // Function to load all notices in history
+        async function loadNotices() {
+            const response = await fetch('/notices');
+            const notices = await response.json();
+            const noticeHistory = document.getElementById('notice-history');
+            
+            noticeHistory.innerHTML = notices.map(notice => `
+                <div class="notice-item">
+                    <h3>${notice.title}</h3>
+                    <p>${notice.notice_text}</p>
+                    <p><small>Posted on: ${new Date(notice.created_at).toLocaleString()}</small></p>
+                    <button onclick="editNotice(${notice.id})">Edit</button>
+                    <button onclick="deleteNotice(${notice.id})">Delete</button>
+                </div>
+            `).join('');
+        }
+
+        // Function to edit a notice
+        async function editNotice(id) {
+            const newTitle = prompt("Enter the new title:");
+            const newContent = prompt("Enter the new content:");
+            
+            if (newTitle && newContent) {
+                await fetch(`/notices/${id}`, {
+                    method: 'PUT',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ title: newTitle, content: newContent })
+                });
+                loadNotices();
+            }
+        }
+
+        // Function to delete a notice
+        async function deleteNotice(id) {
+            await fetch(`/notices/${id}`, { method: 'DELETE' });
+            loadNotices();
+        }
+
+        // Load notices on page load
+        loadNotices();
+    </script>
+</body>
+</html>

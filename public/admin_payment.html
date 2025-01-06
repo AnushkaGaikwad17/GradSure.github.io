@@ -1,0 +1,361 @@
+<!-- <!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Payments Made by Students</title>
+    <link rel="stylesheet" href="styles.css"> 
+</head>
+<body>
+    <div class="container">
+        <h1>Payments Made by Students</h1>
+        <table>
+            <thead>
+                <tr>
+                    <th>Email</th>
+                    <th>Roll Number</th>
+                    <th>Cost (Rs)</th>
+                    <th>Date & Time</th>
+                </tr>
+            </thead>
+            <tbody id="paymentsTable">
+             
+            </tbody>
+        </table>
+    </div>
+    
+    <script>
+      
+        fetch('/api/payments')
+            .then(response => response.json())
+            .then(data => {
+                const tableBody = document.getElementById('paymentsTable');
+                data.forEach(payment => {
+                    const row = document.createElement('tr');
+                    row.innerHTML = `
+                        <td>${payment.email}</td>
+                        <td>${payment.roll_number}</td>
+                        <td>${payment.cost}</td>
+                        <td>${new Date(payment.payment_date).toLocaleString()}</td>
+                    `;
+                    tableBody.appendChild(row);
+                });
+            })
+            .catch(error => console.error('Error fetching payment data:', error));
+    </script>
+</body>
+</html> -->
+
+
+
+
+
+
+
+
+<!-- 
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Payment Page</title>
+</head>
+<body>
+    <h1>Payments Made</h1>
+    <table id="payments-table" border="1">
+        <tr>
+            <th>Email</th>
+            <th>Roll Number</th>
+            <th>Cost</th>
+            <th>Payment Date</th>
+        </tr>
+    </table>
+
+    <script>
+        // Fetch payment records to display on admin page
+        fetch('/api/payments')
+            .then(response => response.json())
+            .then(data => {
+                if (data.success) {
+                    const table = document.getElementById('payments-table');
+                    data.payments.forEach(payment => {
+                        const row = table.insertRow();
+                        row.insertCell(0).innerText = payment.email;
+                        row.insertCell(1).innerText = payment.roll_number;
+                        row.insertCell(2).innerText = `₹${payment.cost}`;
+                        row.insertCell(3).innerText = new Date(payment.payment_date).toLocaleString();
+                    });
+                } else {
+                    alert("Failed to fetch payment records.");
+                }
+            })
+            .catch(error => {
+                alert("An error occurred while fetching payment records.");
+            });
+    </script>
+</body>
+</html> -->
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!-- 
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Payments Made</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 20px;
+            background-color: #f5f5f5;
+        }
+        h1 {
+            color: #5a2bbf; /* Dark purple */
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+        }
+        th, td {
+            padding: 10px;
+            border: 1px solid #ddd;
+            text-align: left;
+        }
+        th {
+            background-color: #5a2bbf; /* Dark purple */
+            color: white;
+        }
+        tr:hover {
+            background-color: #f1f1f1; /* Light gray on hover */
+        }
+    </style>
+</head>
+<body>
+    <h1>Payments Made</h1>
+    <table>
+        <thead>
+            <tr>
+                <th>Email</th>
+                <th>Roll Number</th>
+                <th>Cost</th>
+                <th>Payment Date</th>
+            </tr>
+        </thead>
+        <tbody id="payments-table-body">
+           
+        </tbody>
+    </table>
+
+    <script>
+        // Function to fetch payment data from the API
+        function fetchPayments() {
+            fetch('/api/payments', {
+                method: 'GET',
+                credentials: 'include', // Include credentials to access session data
+            })
+            .then(response => {
+                if (!response.ok) {
+                    throw new Error('Network response was not ok ' + response.statusText);
+                }
+                return response.json();
+            })
+            .then(data => {
+                const paymentsTableBody = document.getElementById('payments-table-body');
+                paymentsTableBody.innerHTML = ''; // Clear any existing rows
+
+                // Populate table with payment data
+                data.forEach(payment => {
+                    const row = document.createElement('tr');
+                    row.innerHTML = `
+                        <td>${payment.email}</td>
+                        <td>${payment.roll_number}</td>
+                        <td>Rs ${payment.cost}</td>
+                        <td>${new Date(payment.payment_date).toLocaleDateString()}</td>
+                    `;
+                    paymentsTableBody.appendChild(row);
+                });
+            })
+            .catch(error => {
+                console.error('There was a problem with the fetch operation:', error);
+                const paymentsTableBody = document.getElementById('payments-table-body');
+                paymentsTableBody.innerHTML = '<tr><td colspan="4">Failed to load payments data.</td></tr>';
+            });
+        }
+
+        // Call fetchPayments on page load
+        window.onload = fetchPayments;
+    </script>
+</body>
+</html> -->
+
+
+
+
+
+
+
+
+
+
+
+
+<!-- 
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Payments Made</title>
+    <link rel="stylesheet" href="admin_payment.css" />
+</head>
+<body> -->
+    <!-- <h1>Payments Made</h1>
+    <table>
+        <thead>
+            <tr>
+                <th>Email</th>
+                <th>Roll Number</th>
+                <th>Cost</th>
+                <th>Payment Date</th>
+            </tr>
+        </thead>
+        <tbody id="payment-records"></tbody>
+    </table>
+    <button onclick="window.location.href='/logout'">Log Out</button>
+
+    <script>
+        // Fetch payment records and populate the table
+        fetch('/api/payments')
+            .then(response => response.json())
+            .then(payments => {
+                const tableBody = document.getElementById('payment-records');
+                payments.forEach(payment => {
+                    const row = document.createElement('tr');
+                    row.innerHTML = `
+                        <td>${payment.email}</td>
+                        <td>${payment.roll_number}</td>
+                        <td>${payment.cost}</td>
+                        <td>${payment.payment_date}</td>
+                    `;
+                    tableBody.appendChild(row);
+                });
+            })
+            .catch(error => {
+                console.error('Error fetching payment records:', error);
+            });
+    </script>
+</body>
+</html>
+ -->
+<!-- 
+ <p>Payment Details</p>
+ <p>Email: <span id="email"></span></p>
+ <p>Roll Number: <span id="roll-number"></span></p>
+ <p>Amount Paid: <span id="amount-paid"></span></p>
+ <p>Total Cost: <span id="total-cost"></span></p>
+ <p>Payment Date: <span id="payment-date"></span></p>
+ 
+
+ <script>
+    // Function to get URL parameters
+    function getQueryParam(param) {
+        const urlParams = new URLSearchParams(window.location.search);
+        return urlParams.get(param);
+    }
+
+    // Display payment details
+    document.addEventListener('DOMContentLoaded', () => {
+        document.getElementById('email').textContent = getQueryParam('email') || 'Not provided';
+        document.getElementById('roll-number').textContent = getQueryParam('roll_number') || 'Not provided';
+        document.getElementById('amount-paid').textContent = `Rs ${getQueryParam('cost') || '0'}`;
+        document.getElementById('total-cost').textContent = `Rs ${getQueryParam('cost') || '0'}`;
+        document.getElementById('payment-date').textContent = getQueryParam('payment_date') || 'Not provided';
+    });
+</script>
+
+</body>
+</html> -->
+
+
+
+
+
+
+
+
+
+
+
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Payments Made</title>
+    <link rel="stylesheet" href="admin_payment.css">
+</head>
+<body>
+    <h1>Payments Made</h1>
+    <table>
+        <thead>
+            <tr>
+                <th>Email</th>
+                <th>Roll Number</th>
+                <th>Cost</th>
+                <th>Payment Date</th>
+            </tr>
+        </thead>
+        <tbody id="payment-records"></tbody>
+    </table>
+    <button onclick="window.location.href='/logout'">Log Out</button>
+
+    <script>
+        // Fetch payment records and populate the table
+        fetch('/api/payments')
+            .then(response => response.json())
+            .then(payments => {
+                const tableBody = document.getElementById('payment-records');
+                payments.forEach(payment => {
+                    const row = document.createElement('tr');
+                    row.innerHTML = `
+                        <td>${payment.email}</td>
+                        <td>${payment.roll_number}</td>
+                        <td>${payment.cost}</td>
+                        <td>${payment.payment_date}</td>
+                    `;
+                    tableBody.appendChild(row);
+                });
+            })
+            .catch(error => {
+                console.error('Error fetching payment records:', error);
+            });
+    </script>
+</body>
+</html>

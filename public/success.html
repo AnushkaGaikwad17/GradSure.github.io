@@ -1,0 +1,580 @@
+<!-- <!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <h1>Congratulations !!!! Exam registered successfully</h1>
+    <a href="login-options.html"> Log Out</a>
+</body>
+</html> -->
+
+<!-- 
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Payment - GradSure</title>
+  <script src="https://checkout.razorpay.com/v1/checkout.js"></script>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 20px;
+      background-color: #f4f4f4;
+    }
+    h1, h3 {
+      color: #333;
+    }
+    .btn {
+      background-color: #4CAF50;
+      color: white;
+      border: none;
+      padding: 10px 20px;
+      cursor: pointer;
+      margin-top: 20px;
+    }
+    .btn:hover {
+      background-color: #45a049;
+    }
+  </style>
+</head>
+<body>
+  <h1>Proceed to Payment</h1>
+  <h3>Total Amount: ₹<span id="total-cost"></span></h3>
+  <button class="btn" onclick="initiatePayment()">Pay Now</button>
+
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      // Fetch total cost from URL
+      const urlParams = new URLSearchParams(window.location.search);
+      const totalCost = urlParams.get('cost');
+
+      if (!totalCost) {
+        alert("Total cost not found. Redirecting back to exam registration.");
+        window.location.href = "exam_registration.html";
+        return;
+      }
+
+      // Display total cost
+      document.getElementById('total-cost').textContent = totalCost;
+
+      // Payment function
+      window.initiatePayment = async function () {
+        try {
+          const response = await fetch('http://localhost:3000/create-order', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ amount: totalCost }), // Send total cost to backend
+          });
+
+          const { orderId, amount, currency } = await response.json();
+
+          const options = {
+            key: "YOUR_RAZORPAY_KEY_ID", // Replace with Razorpay key_id
+            amount: amount.toString(),
+            currency: currency,
+            name: "GradSure Registration",
+            description: "Payment for Exam Registration",
+            order_id: orderId,
+            handler: function (response) {
+              alert("Payment Successful!");
+              console.log("Payment Details:", response);
+              window.location.href = "success.html"; // Redirect on success
+            },
+            prefill: {
+              email: "student@example.com", // Replace with dynamic email
+              contact: "9876543210", // Replace with dynamic contact
+            },
+          };
+
+          const paymentObject = new Razorpay(options);
+          paymentObject.open();
+        } catch (error) {
+          console.error("Error initiating payment:", error);
+          alert("Failed to initiate payment. Please try again.");
+        }
+      };
+    });
+  </script>
+</body>
+</html> -->
+
+
+
+
+
+
+
+
+
+
+
+<!-- <!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Payment Success - GradSure</title>
+</head>
+<body>
+  <h1>Payment Successful!</h1>
+  <p>Your payment has been processed successfully (mock payment).</p>
+  <a href="Dashboard_student.html">Go Back to Dashboard</a>
+</body>
+</html> -->
+
+
+
+
+
+
+
+
+
+<!-- <!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Payment Success - GradSure</title>
+  <style>
+    /* General Reset */
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: Arial, sans-serif;
+    }
+
+    /* Body Styling */
+    body {
+      background-color: #f3f4f6;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      margin: 0;
+    }
+
+    /* Payment Container */
+    .payment-container {
+      background-color: #fff;
+      border-radius: 10px;
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+      padding: 25px;
+      width: 100%;
+      max-width: 400px;
+      text-align: center;
+    }
+
+    /* Header */
+    .payment-container h1 {
+      font-size: 26px;
+      color: #4CAF50;
+      margin-bottom: 20px;
+    }
+
+    /* Payment Amount */
+    .amount-paid {
+      font-size: 28px;
+      font-weight: bold;
+      color: #333;
+      margin: 10px 0;
+    }
+
+    .success-message {
+      color: #4CAF50;
+      font-size: 16px;
+      margin-bottom: 20px;
+    }
+
+    /* Payment Details */
+    .details p {
+      font-size: 14px;
+      color: #555;
+      margin: 8px 0;
+    }
+
+    .details p strong {
+      color: #333;
+    }
+
+    /* Button */
+    .dashboard-btn {
+      display: inline-block;
+      margin-top: 20px;
+      padding: 10px 20px;
+      text-decoration: none;
+      background-color: #4CAF50;
+      color: white;
+      font-weight: bold;
+      border-radius: 5px;
+      transition: background 0.3s ease;
+    }
+
+    .dashboard-btn:hover {
+      background-color: #45a049;
+    }
+  </style>
+</head>
+<body>
+ 
+  <div class="payment-container">
+    <h1>Payment Successful!</h1>
+    <p class="amount-paid" id="amountPaid">₹0</p>
+    <p class="success-message">✔ Your payment has been processed successfully</p>
+
+  
+    <div class="details">
+      <p><strong>Email:</strong> <span id="studentEmail">example@student.com</span></p>
+      <p><strong>Amount Paid:</strong> <span id="amountDetails">₹0</span></p>
+      <p><strong>Date:</strong> <span id="paymentDate"></span></p>
+    </div>
+
+   
+    <a href="Dashboard_student.html" class="dashboard-btn">Go Back to Dashboard</a>
+  </div>
+
+ 
+  <script>
+    
+    document.addEventListener("DOMContentLoaded", function () {
+      
+      const amountPaid = localStorage.getItem("totalAmount") || "0";
+      const studentEmail = localStorage.getItem("studentEmail") || "example@student.com";
+
+   
+      document.getElementById("amountPaid").textContent = `₹${amountPaid}`;
+      document.getElementById("amountDetails").textContent = `₹${amountPaid}`;
+      document.getElementById("studentEmail").textContent = studentEmail;
+
+      
+      const currentDate = new Date();
+      const formattedDate = currentDate.toLocaleDateString("en-GB", {
+        day: "numeric",
+        month: "long",
+        year: "numeric",
+      });
+
+      document.getElementById("paymentDate").textContent = formattedDate;
+    });
+  </script>
+</body>
+</html>
+ -->
+
+
+
+
+
+<!-- 
+
+ <!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Payment Success - GradSure</title>
+  <style>
+    body {
+      margin: 0;
+      font-family: Arial, sans-serif;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      background-color: #f9f9f9;
+    }
+
+    .container {
+      text-align: center;
+      background: #ffffff;
+      padding: 20px;
+      border-radius: 10px;
+      box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+      max-width: 400px;
+    }
+
+    h1 {
+      color: #4caf50;
+    }
+
+    p {
+      font-size: 16px;
+      margin: 10px 0;
+      color: #333;
+    }
+
+    .details {
+      margin-top: 15px;
+      text-align: left;
+    }
+
+    .details span {
+      font-weight: bold;
+    }
+
+    a {
+      display: inline-block;
+      margin-top: 20px;
+      text-decoration: none;
+      color: #fff;
+      background-color: #4caf50;
+      padding: 10px 15px;
+      border-radius: 5px;
+      font-size: 16px;
+    }
+
+    a:hover {
+      background-color: #45a049;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>Payment Successful!</h1>
+    <p>Thank you, <span id="student-name"></span>!</p>
+    <p>Your payment has been processed successfully.</p>
+    <div class="details">
+      <p><span>Paid Amount:</span> Rs <span id="total-amount"></span></p>
+      <p><span>Payment Date:</span> <span id="payment-date"></span></p>
+    </div>
+    <a href="Dashboard_student.html">Go Back to Dashboard</a>
+  </div>
+
+  <script>
+    // Retrieve values from localStorage
+    const studentName = localStorage.getItem('studentName') || 'Student';
+    const totalAmount = localStorage.getItem('totalAmount') || '0';
+
+    // Set values on the page
+    document.querySelector('#student-name').textContent = studentName;
+    document.querySelector('#total-amount').textContent = totalAmount;
+
+    // Display current date in a readable format
+    const currentDate = new Date();
+    const formattedDate = currentDate.toLocaleDateString('en-IN', {
+      day: '2-digit',
+      month: 'long',
+      year: 'numeric'
+    });
+    document.querySelector('#payment-date').textContent = formattedDate;
+
+
+
+
+
+
+
+
+
+     // Save payment details to the database
+     const savePayment = async () => {
+      try {
+        const response = await fetch('http://localhost:3000/save-payment', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json'
+          },
+          body: JSON.stringify({
+            studentName: studentName,
+            amount: totalAmount,
+            paymentDate: new Date().toISOString().split('T')[0] // Format as YYYY-MM-DD
+          })
+        });
+        
+        if (!response.ok) {
+          throw new Error('Failed to save payment data');
+        }
+
+        const result = await response.json();
+        console.log(result.message);
+      } catch (error) {
+        console.error('Error saving payment data:', error);
+      }
+    };
+
+    // Call the function to save payment data
+    savePayment();
+  </script>
+</body>
+</html> -->
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Payment Success - GradSure</title>
+  <style>
+    body {
+      margin: 0;
+      font-family: Arial, sans-serif;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      background-color: #f9f9f9;
+    }
+
+    .container {
+      text-align: center;
+      background: #ffffff;
+      padding: 20px;
+      border-radius: 10px;
+      box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+      max-width: 400px;
+    }
+
+    h1 {
+      color: #4caf50;
+    }
+
+    p {
+      font-size: 16px;
+      margin: 10px 0;
+      color: #333;
+    }
+
+    .details {
+      margin-top: 15px;
+      text-align: left;
+    }
+
+    .details span {
+      font-weight: bold;
+    }
+
+    a {
+      display: inline-block;
+      margin-top: 20px;
+      text-decoration: none;
+      color: #fff;
+      background-color: #4caf50;
+      padding: 10px 15px;
+      border-radius: 5px;
+      font-size: 16px;
+    }
+
+    a:hover {
+      background-color: #45a049;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>Payment Successful!</h1>
+    <p>Thank you, <span id="student-name"></span>!</p>
+    <p>Your payment has been processed successfully.</p>
+    <div class="details">
+      <p><span>Paid Amount:</span> Rs <span id="total-amount"></span></p>
+      <p><span>Payment Date:</span> <span id="payment-date"></span></p>
+    </div>
+    <a href="Dashboard_student.html">Go Back to Dashboard</a>
+  </div>
+
+  <script>
+    async function loadPaymentDetails() {
+      try {
+        // Fetch email from backend
+        const emailResponse = await fetch('http://localhost:3000/get-email');
+        if (!emailResponse.ok) {
+          throw new Error('Failed to fetch email');
+        }
+        const emailData = await emailResponse.json();
+        const email = emailData.email;
+
+        // Mock studentName and amount for this example
+        const studentName = localStorage.getItem('studentName') || 'Student';
+        const totalAmount = localStorage.getItem('totalAmount') || '0';
+
+        // Set values on the page
+        document.querySelector('#student-name').textContent = studentName;
+        document.querySelector('#total-amount').textContent = totalAmount;
+
+        // Display current date in a readable format
+        const currentDate = new Date();
+        const formattedDate = currentDate.toLocaleDateString('en-IN', {
+          day: '2-digit',
+          month: 'long',
+          year: 'numeric'
+        });
+        document.querySelector('#payment-date').textContent = formattedDate;
+
+        // Save payment details to the database
+        const response = await fetch('http://localhost:3000/save-payment', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json'
+          },
+          body: JSON.stringify({
+            studentName: studentName,
+            email: email,
+            amount: totalAmount,
+            paymentDate: new Date().toISOString().split('T')[0] // Format as YYYY-MM-DD
+          })
+        });
+
+        if (!response.ok) {
+          throw new Error('Failed to save payment data');
+        }
+
+        const result = await response.json();
+        console.log(result.message);
+      } catch (error) {
+        console.error('Error:', error);
+      }
+    }
+
+    // Call the function to load and save payment details
+    loadPaymentDetails();
+  </script>
+</body>
+</html>

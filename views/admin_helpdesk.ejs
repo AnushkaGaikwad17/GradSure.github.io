@@ -1,0 +1,282 @@
+<!-- <!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Manage Queries</title>
+    <link rel="stylesheet" href="/styles.css">
+</head>
+<body>
+    <h1>Manage Queries</h1>
+    <table>
+        <thead>
+            <tr>
+                <th>Student Name</th>
+                <th>Student Email</th>
+                <th>Query</th>
+                <th>Response</th>
+                <th>Status</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            <% queries.forEach(query => { %>
+                <tr>
+                    <td><%= query.name %></td>
+                    <td><%= query.email %></td>
+                    <td><%= query.query %></td>
+                    <td>
+                        <% if (query.status === 'answered') { %>
+                            <%= query.response %>
+                        <% } else { %>
+                            <form action="/respond/<%= query.id %>" method="POST">
+                                <textarea name="response" rows="3" cols="30" placeholder="Write your response here..."></textarea><br>
+                                <button type="submit">Respond</button>
+                            </form>
+                        <% } %>
+                    </td>
+                    <td><%= query.status %></td>
+                </tr>
+            <% }) %>
+        </tbody>
+    </table>
+</body>
+</html> -->
+
+
+
+
+
+<!-- <!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/css/style.css">
+    <title>Admin Helpdesk</title>
+</head>
+<body>
+    <div class="admin-container">
+        <h1>Admin Dashboard</h1>
+        <table>
+            <thead>
+                <tr>
+                    <th>Student Name</th>
+                    <th>Email</th>
+                    <th>Query</th>
+                    <th>Action</th>
+                </tr>
+            </thead>
+            <tbody>
+                <% queries.forEach(query => { %>
+                    <tr>
+                        <td><%= query.name %></td>
+                        <td><%= query.email %></td>
+                        <td><%= query.query %></td>
+                        <td>
+                            <form action="/admin-response" method="POST">
+                                <input type="hidden" name="queryId" value="<%= query.id %>">
+                                <textarea name="responseText" placeholder="Type your response here..." required></textarea>
+                                <button type="submit">Reply</button>
+                            </form>
+                        </td>
+                    </tr>
+                <% }); %>
+            </tbody>
+        </table>
+    </div>
+</body>
+</html> -->
+
+
+
+
+<!-- <!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Dashboard</title>
+    <link rel="stylesheet" href="/css/style.css">
+</head>
+<body>
+    <div class="admin-container">
+        <h2>Admin Dashboard</h2>
+        <div class="query-list">
+            <% queries.forEach(query => { %>
+                <div class="query-item">
+                    <p><strong>Student:</strong> <%= query.name %> (<%= query.email %>)</p>
+                    <p><strong>Query:</strong> <%= query.query %></p>
+                    <form action="/admin/respond" method="POST">
+                        <input type="hidden" name="queryId" value="<%= query.id %>">
+                        <textarea name="response" placeholder="Type your response..."></textarea>
+                        <button type="submit">Send</button>
+                    </form>
+                </div>
+            <% }) %>
+        </div>
+    </div>
+</body>
+</html> -->
+
+
+
+
+<!-- <!DOCTYPE html>
+<html>
+<head>
+    <title>Admin Helpdesk</title>
+    <link rel="stylesheet" type="text/css" href="/styles.css">
+</head>
+<body>
+    <h1>Admin Helpdesk</h1>
+    <div id="chat">
+        <ul id="messages"></ul>
+    </div>
+    <textarea id="response" placeholder="Respond to query..."></textarea>
+    <button id="send">Send Response</button>
+
+    <script src="/admin.js"></script>
+</body>
+</html> -->
+
+
+
+
+
+<!-- <!DOCTYPE html>
+<html>
+<head>
+    <title>Admin Chat</title>
+    <link rel="stylesheet" href="/styles_helpdesk.css">
+</head>
+<body>
+    <div class="admin-container">
+        <h2>Student Queries</h2>
+        <div id="query-list">
+            <!-- Query list will be dynamically loaded here -->
+        <!-- </div>
+        <form id="response-form" style="display:none;">
+            <textarea id="response" placeholder="Enter your response..."></textarea>
+            <button type="submit">Send Response</button>
+        </form>
+    </div>
+
+    <script>
+        let selectedQueryId;
+
+        // Function to load student queries
+        async function loadQueries() {
+            const response = await fetch('/admin_helpdesk/queries');
+            const queries = await response.json();
+            const queryList = document.getElementById('query-list');
+            queryList.innerHTML = '';
+            queries.forEach(query => {
+                queryList.innerHTML += `<div class="query-item" onclick="selectQuery(${query.id})">
+                    <strong>Student:</strong> ${query.student_name} (${query.student_email})<br>
+                    <strong>Query:</strong> ${query.query}<br>
+                    <strong>Status:</strong> ${query.status}
+                </div>`;
+            });
+        }
+
+        // Function to select a query and show response form
+        function selectQuery(queryId) {
+            selectedQueryId = queryId;
+            document.getElementById('response-form').style.display = 'block';
+        }
+
+        // Function to send a response
+        document.getElementById('response-form').addEventListener('submit', async (e) => {
+            e.preventDefault();
+            const response = document.getElementById('response').value;
+            await fetch('/admin_helpdesk/respond', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ queryId: selectedQueryId, response })
+            });
+            document.getElementById('response').value = '';
+            loadQueries();
+        });
+
+        // Load queries on page load
+        loadQueries();
+        setInterval(loadQueries, 5000); // Refresh query list every 5 seconds
+    </script>
+</body>
+</html>
+
+ --> -->
+
+
+
+
+ <!DOCTYPE html>
+<html>
+<head>
+    <title>Admin Helpdesk</title>
+    <link rel="stylesheet" href="/styles_helpdesk.css">
+</head>
+<body>
+    <div class="admin-container">
+        <h2>Student Queries</h2>
+        <div id="query-list">
+            <!-- Query list will be dynamically loaded here -->
+        </div>
+        <form id="response-form" style="display:none;">
+            <textarea id="response" placeholder="Enter your response..."></textarea>
+            <button type="submit">Send Response</button>
+        </form>
+    </div>
+    <script src="/public/admin_helpdesk.js"></script>
+    <!-- <script>
+        let selectedQueryId;
+
+        // Function to load student queries
+        async function loadQueries() {
+            const response = await fetch('/admin_helpdesk/queries');
+            if (!response.ok) {
+                console.error('Failed to fetch queries');
+                return;
+            }
+            const queries = await response.json();
+            const queryList = document.getElementById('query-list');
+            queryList.innerHTML = '';
+            queries.forEach(query => {
+                queryList.innerHTML += `
+                    <div class="query-item" onclick="selectQuery(${query.id})">
+                        <strong>Student:</strong> ${query.student_name} (${query.student_email})<br>
+                        <strong>Query:</strong> ${query.query}<br>
+                        <strong>Status:</strong> ${query.status}
+                    </div>`;
+            });
+        }
+
+        // Function to select a query and show the response form
+        function selectQuery(queryId) {
+            selectedQueryId = queryId;
+            document.getElementById('response-form').style.display = 'block';
+        }
+
+        // Function to send a response
+        document.getElementById('response-form').addEventListener('submit', async (e) => {
+            e.preventDefault();
+            const responseText = document.getElementById('response').value;
+            if (responseText.trim() === '') return;
+            
+            await fetch('/admin_helpdesk/respond', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ queryId: selectedQueryId, response: responseText })
+            });
+            document.getElementById('response').value = '';
+            loadQueries();
+        });
+
+        // Load queries on page load
+        loadQueries();
+        setInterval(loadQueries, 5000); // Refresh query list every 5 seconds
+    </script> -->
+</body>
+</html>
+

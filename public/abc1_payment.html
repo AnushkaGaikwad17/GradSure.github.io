@@ -1,0 +1,369 @@
+<!-- <!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>All Payments - GradSure</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 20px;
+    }
+    table {
+      width: 100%;
+      border-collapse: collapse;
+    }
+    table, th, td {
+      border: 1px solid #ddd;
+    }
+    th, td {
+      padding: 10px;
+      text-align: left;
+    }
+    th {
+      background-color: #f4f4f4;
+    }
+  </style>
+</head>
+<body>
+  <h1>All Payments</h1>
+  <table>
+    <thead>
+      <tr>
+        <th>Student Name</th>
+        <th>Amount</th>
+        <th>Payment Date</th>
+      </tr>
+    </thead>
+    <tbody id="payment-table-body">
+    </tbody>
+  </table>
+
+  <script>
+    // Fetch payment data from the server
+    fetch('/fetch-payments')
+      .then(response => response.json())
+      .then(data => {
+        const tableBody = document.getElementById('payment-table-body');
+        data.forEach(payment => {
+          const row = document.createElement('tr');
+          row.innerHTML = `
+            <td>${payment.student_name}</td>
+            <td>Rs ${payment.amount}</td>
+            <td>${new Date(payment.payment_date).toLocaleDateString('en-IN')}</td>
+          `;
+          tableBody.appendChild(row);
+        });
+      })
+      .catch(error => console.error('Error fetching payments:', error));
+  </script>
+</body>
+</html> -->
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!-- <!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>All Payments - GradSure</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 20px;
+    }
+    table {
+      width: 100%;
+      border-collapse: collapse;
+    }
+    table, th, td {
+      border: 1px solid #ddd;
+    }
+    th, td {
+      padding: 10px;
+      text-align: left;
+    }
+    th {
+      background-color: #f4f4f4;
+    }
+  </style>
+</head>
+<body>
+  <h1>All Payments</h1>
+  <table>
+    <thead>
+      <tr>
+        <th>Student Name</th>
+        <th>Email</th>
+        <th>Amount</th>
+        <th>Payment Date</th>
+      </tr>
+    </thead>
+    <tbody id="payment-table-body">
+    </tbody>
+  </table>
+
+  <script>
+   
+    fetch('/fetch-payments')
+      .then(response => response.json())
+      .then(data => {
+        const tableBody = document.getElementById('payment-table-body');
+        data.forEach(payment => {
+          const row = document.createElement('tr');
+          const paymentDate = new Date(payment.payment_date);
+        
+      
+        const formattedDate = paymentDate.toLocaleString('en-IN', {
+          day: '2-digit',
+          month: 'long',
+          year: 'numeric',
+          hour: '2-digit',
+          minute: '2-digit',
+          second: '2-digit',
+        });
+          row.innerHTML = `
+            <td>${payment.student_name}</td>
+            <td>${payment.email}</td>
+            <td>Rs ${payment.amount}</td>
+             <td>${formattedDate}</td>
+          `;
+          tableBody.appendChild(row);
+        });
+      })
+      .catch(error => console.error('Error fetching payments:', error));
+
+ 
+
+
+
+
+
+   
+
+  </script>
+</body>
+</html> -->
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>All Payments - GradSure</title>
+  <style>
+    body {
+      font-family: 'Arial', sans-serif;
+      margin: 20px;
+      background-color: #f9f9f9;
+    }
+
+    h1 {
+      text-align: center;
+      margin-bottom: 20px;
+      color: #333;
+    }
+
+    .search-container {
+        display: flex;
+      justify-content: flex-start;
+      align-items: center;
+      gap: 10px;
+      margin-bottom: 20px;
+    }
+
+    .search-container input,
+    .search-container button {
+      padding: 8px 15px;
+      font-size: 16px;
+      border-radius: 4px;
+      border: 1px solid #ccc;
+    }
+
+    .search-container button {
+      background-color: #f15252;
+      color: white;
+      cursor: pointer;
+    }
+
+    .search-container button:hover {
+      background-color: #f81b1b;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      background-color: #fff;
+      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    }
+
+    th, td {
+      padding: 12px 15px;
+      text-align: left;
+      border-bottom: 1px solid #dddddd;
+    }
+
+    th {
+      background-color: #3479f0;
+      color: #f7f2f2;
+    }
+
+    td {
+      color: #555;
+    }
+
+    tr:hover {
+      background-color: #f1f1f1;
+    }
+
+    .no-results {
+      text-align: center;
+      font-size: 18px;
+      color: #ff6347;
+      margin-top: 20px;
+    }
+  </style>
+</head>
+<body>
+
+  <h1>All Payments</h1>
+
+  <div class="search-container">
+    <input type="text" id="search-name" placeholder="Search by Student Name">
+    <input type="text" id="search-email" placeholder="Search by Email">
+    <button onclick="searchData()">Search</button>
+  </div>
+
+  <table>
+    <thead>
+      <tr>
+        <th>Student Name</th>
+        <th>Email</th>
+        <th>Amount</th>
+        <th>Payment Date</th>
+        <th>Payment Status</th>
+      </tr>
+    </thead>
+    <tbody id="payment-table-body">
+    </tbody>
+  </table>
+
+  <div id="no-results" class="no-results" style="display: none;">No results found.</div>
+
+  <script>
+    let paymentData = [];
+
+    // Fetch payment data from the server
+    fetch('/fetch-payments')
+      .then(response => response.json())
+      .then(data => {
+        paymentData = data;
+        displayData(paymentData);
+      })
+      .catch(error => console.error('Error fetching payments:', error));
+
+    // Function to display data in the table
+    function displayData(data) {
+      const tableBody = document.getElementById('payment-table-body');
+      tableBody.innerHTML = '';
+
+      if (data.length === 0) {
+        document.getElementById('no-results').style.display = 'block';
+      } else {
+        document.getElementById('no-results').style.display = 'none';
+        data.forEach(payment => {
+          const row = document.createElement('tr');
+          const paymentDate = new Date(payment.payment_date);
+
+          // Format the date and time
+          const formattedDate = paymentDate.toLocaleString('en-IN', {
+            day: '2-digit',
+            month: 'long',
+            year: 'numeric',
+            hour: '2-digit',
+            minute: '2-digit',
+            second: '2-digit',
+          });
+
+          row.innerHTML = `
+            <td>${payment.student_name}</td>
+            <td>${payment.email}</td>
+            <td>Rs ${payment.amount}</td>
+            <td>${formattedDate}</td>
+             <td>${payment.payment_status}</td>
+          `;
+          tableBody.appendChild(row);
+        });
+      }
+    }
+
+    // Search function
+    function searchData() {
+      const searchName = document.getElementById('search-name').value.toLowerCase();
+      const searchEmail = document.getElementById('search-email').value.toLowerCase();
+
+      const filteredData = paymentData.filter(payment => {
+        return (
+          (payment.student_name.toLowerCase().includes(searchName) || searchName === '') &&
+          (payment.email.toLowerCase().includes(searchEmail) || searchEmail === '')
+        );
+      });
+
+      displayData(filteredData);
+    }
+  </script>
+
+</body>
+</html>

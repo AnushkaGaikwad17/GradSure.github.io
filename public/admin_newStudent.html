@@ -1,0 +1,660 @@
+<!-- <!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Admin Add Student</title>
+  <link rel="stylesheet" href="admin_newStudent.">
+</head>
+<body>
+  <h1>Add New Student</h1>
+  <form id="addStudentForm">
+    <fieldset>
+      <legend>Student Information (Students Table)</legend>
+      <label for="name">Name:</label>
+      <input type="text" id="name" name="name" required><br><br>
+
+      <label for="email">Email:</label>
+      <input type="email" id="email" name="email" required><br><br>
+
+      <label for="password">Password:</label>
+      <input type="password" id="password" name="password" required><br><br>
+
+    >
+      <div id="courseContainer">
+        <div class="courseEntry">
+            <input type="text" name="course[]" placeholder="Course Name" required>
+            <input type="text" name="course_code[]" placeholder="Course ID" required>
+        </div>
+    </div>
+    <button type="button" onclick="addCourse()">Add Another Course</button>
+
+      <label for="year">Year:</label>
+      <input type="number" id="year" name="year" required><br><br>
+
+      <label for="roll_number">Roll Number:</label>
+      <input type="text" id="roll_number" name="roll_number" required><br><br>
+
+      <label for="course_code">Course Code:</label>
+      <input type="text" id="course_code" name="course_code" required><br><br>
+
+      <label for="branch">Branch:</label>
+      <input type="text" id="branch" name="branch" required><br><br>
+
+      <label for="carry_forward">Carry Forward:</label>
+      <select id="carry_forward" name="carry_forward">
+        <option value="no">No</option>
+        <option value="yes">Yes</option>
+      </select>
+    </fieldset>
+
+    <fieldset>
+      <legend>Student Details (Student_Details Table)</legend>
+      <label for="house_address">House Address:</label>
+      <input type="text" id="house_address" name="house_address" required><br><br>
+
+      <label for="graduation_year">Graduation Year:</label>
+      <input type="number" id="graduation_year" name="graduation_year" required><br><br>
+
+      <label for="academic_year">Academic Year:</label>
+      <input type="text" id="academic_year" name="academic_year" required><br><br>
+
+      <label for="date_of_birth">Date of Birth:</label>
+      <input type="date" id="date_of_birth" name="date_of_birth" required><br><br>
+
+      <label for="contact_number">Contact Number:</label>
+      <input type="tel" id="contact_number" name="contact_number" required><br><br>
+
+      <label for="gender">Gender:</label>
+      <select id="gender" name="gender" required>
+        <option value="Female">Female</option>
+        <option value="Male">Male</option>
+        <option value="Other">Other</option>
+      </select>
+    </fieldset>
+
+    <button type="submit">Add Student</button>
+  </form>
+
+  <script>
+       function addCourse() {
+       
+        const courseContainer = document.getElementById('courseContainer');
+        const newCourseEntry = document.createElement('div');
+        newCourseEntry.classList.add('courseEntry');
+        newCourseEntry.innerHTML = `
+            <input type="text" name="course[]" placeholder="Course Name" required>
+            <input type="text" name="course_code[]" placeholder="Course ID" required>
+        `;
+        courseContainer.appendChild(newCourseEntry);
+    }
+    document.getElementById('addStudentForm').addEventListener('submit', async (event) => {
+      event.preventDefault();
+      const formData = new FormData(event.target);
+      const data = Object.fromEntries(formData);
+
+      try {
+        const response = await fetch('/admin/add-student', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify(data),
+        });
+
+        const result = await response.json();
+        alert(result.message);
+      } catch (error) {
+        console.error('Error adding student:', error);
+        alert('Failed to add student.');
+      }
+    });
+  </script>
+</body>
+</html> -->
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!-- 
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Student Management</title>
+  <style>
+   
+      body {
+      font-family: Arial, sans-serif;
+      margin: 0;
+      padding: 0;
+      background-color: #f4f4f9;
+      color: #333;
+    }
+    
+    h1 {
+      text-align: center;
+      margin: 20px 0;
+      color: #1e88e5;
+    }
+    
+    /* Form Styling */
+    form {
+      background: #ffffff;
+      border-radius: 10px;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+      padding: 20px;
+      max-width: 800px;
+      margin: 20px auto;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+    }
+    
+    form input {
+      flex: 1 1 calc(50% - 20px);
+      padding: 10px;
+      font-size: 14px;
+      border: 1px solid #ccc;
+      border-radius: 5px;
+    }
+
+    form input[type="text"], 
+    form input[type="email"], 
+    form input[type="number"], 
+    form input[type="date"] {
+      background-color: #f9f9f9;
+    }
+
+    form button {
+      background: #1e88e5;
+      color: #fff;
+      padding: 10px 20px;
+      font-size: 16px;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+      flex: 1 1 100%;
+    }
+
+    form button:hover {
+      background: #1565c0;
+    }
+
+    /* Table Styling */
+    table {
+      width: 90%;
+      margin: 20px auto;
+      border-collapse: collapse;
+      background: #ffffff;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    }
+
+    th, td {
+      padding: 12px 15px;
+      text-align: center;
+    }
+
+    th {
+      background: #1e88e5;
+      color: #fff;
+    }
+
+    tr:nth-child(even) {
+      background-color: #f9f9f9;
+    }
+
+    tr:hover {
+      background-color: #f1f1f1;
+    }
+
+    td {
+      border: 1px solid #ddd;
+    }
+
+    /* Button Styling inside Table */
+    table button {
+      padding: 5px 10px;
+      font-size: 14px;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+
+    table button:hover {
+      opacity: 0.9;
+    }
+
+    table button:nth-child(1) {
+      background: #f44336;
+      color: white;
+    }
+
+    table button:nth-child(2) {
+      background: #ffb300;
+      color: white;
+    }
+
+    /* Responsive Design */
+    @media (max-width: 768px) {
+      form {
+        flex-direction: column;
+      }
+
+      form input {
+        flex: 1 1 100%;
+      }
+    }
+  </style>
+</head>
+<body>
+  <h1>Student Management</h1>
+
+ 
+  <form id="addStudentForm">
+    <input type="text" name="name" placeholder="Name" required>
+    <input type="email" name="email" placeholder="Email" required>
+    <input type="text" name="course" placeholder="Course" required>
+    <input type="number" name="year" placeholder="Year" required>
+    <input type="text" name="roll_number" placeholder="Roll Number" required>
+    <input type="text" name="course_code" placeholder="Course Code" required>
+    <input type="text" name="branch" placeholder="Branch" required>
+    <input type="text" name="carry_forward" placeholder="Carry Forward (yes/no)" required>
+    <input type="text" name="house_address" placeholder="House Address">
+    <input type="number" name="graduation_year" placeholder="Graduation Year">
+    <input type="text" name="academic_year" placeholder="Academic Year">
+    <input type="date" name="date_of_birth" placeholder="Date of Birth">
+    <input type="text" name="contact_number" placeholder="Contact Number">
+    <input type="text" name="gender" placeholder="Gender">
+    <button type="submit">Add Student</button>
+  </form>
+
+ 
+  <table>
+    <thead>
+      <tr>
+        <th>Name</th>
+        <th>Email</th>
+        <th>Course</th>
+        <th>Year</th>
+        <th>Roll Number</th>
+        <th>Course Code</th>
+        <th>Branch</th>
+        <th>Carry Forward</th>
+        <th>Actions</th>
+      </tr>
+    </thead>
+    <tbody id="studentsTable"></tbody>
+  </table>
+
+  <script>
+    // Fetch and display students
+    async function fetchStudents() {
+      const response = await fetch("/students");
+      const students = await response.json();
+
+      const tableBody = document.getElementById("studentsTable");
+      tableBody.innerHTML = students.map(student => `
+        <tr>
+          <td>${student.name}</td>
+          <td>${student.email}</td>
+          <td>${student.course}</td>
+          <td>${student.year}</td>
+          <td>${student.roll_number}</td>
+          <td>${student.course_code}</td>
+          <td>${student.branch}</td>
+          <td>${student.carry_forward}</td>
+          <td>
+           
+            <button onclick="deleteStudent('${student.email}')">Delete</button>
+          </td>
+        </tr>
+      `).join("");
+    }
+    // <button onclick="editStudent('${student.email}')">Edit</button>
+    // Add student
+    document.getElementById("addStudentForm").addEventListener("submit", async (e) => {
+      e.preventDefault();
+      const formData = new FormData(e.target);
+      const data = Object.fromEntries(formData.entries());
+
+      await fetch("/students", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(data),
+      });
+
+      e.target.reset();
+      fetchStudents();
+    });
+ // Example editStudent function
+function editStudent(email) {
+    // Fetch the student details from the backend using the email
+    fetch(`/api/students/${email}`)
+        .then(response => response.json())
+        .then(student => {
+            // Populate the form fields with the fetched student data
+            document.getElementById('name').value = student.name;
+            document.getElementById('roll_number').value = student.roll_number;
+            document.getElementById('branch').value = student.branch;
+            document.getElementById('course').value = student.course;
+            document.getElementById('year').value = student.year;
+
+            // Optionally, open a modal or form for editing
+            document.getElementById('editModal').style.display = 'block';
+        })
+        .catch(error => console.error('Error fetching student:', error));
+}
+
+
+function saveEdit(email) {
+    const updatedStudent = {
+        name: document.getElementById('name').value,
+        roll_number: document.getElementById('roll_number').value,
+        branch: document.getElementById('branch').value,
+        course: document.getElementById('course').value,
+        year: parseInt(document.getElementById('year').value),
+    };
+
+    // Send the updated data to the backend
+    fetch(`/api/students/${email}`, {
+        method: 'PUT',
+        headers: {
+            'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(updatedStudent),
+    })
+        .then(response => {
+            if (response.ok) {
+                alert('Student updated successfully!');
+                location.reload(); // Refresh the page or re-fetch the student list
+            } else {
+                alert('Failed to update student.');
+            }
+        })
+        .catch(error => console.error('Error updating student:', error));
+}
+
+    // Delete student
+    async function deleteStudent(email) {
+      await fetch(`/students/${email}`, { method: "DELETE" });
+      fetchStudents();
+    }
+
+    // Initial load
+    fetchStudents();
+  </script>
+</body>
+</html> -->
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Student Management</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 0;
+      padding: 0;
+      background-color: #f4f4f9;
+      color: #333;
+    }
+
+    h1 {
+      text-align: center;
+      margin: 20px 0;
+      color: #1e88e5;
+    }
+
+    form {
+      background: #ffffff;
+      border-radius: 10px;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+      padding: 20px;
+      max-width: 800px;
+      margin: 20px auto;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+    }
+
+    form input {
+      flex: 1 1 calc(50% - 20px);
+      padding: 10px;
+      font-size: 14px;
+      border: 1px solid #ccc;
+      border-radius: 5px;
+    }
+
+    form input[type="text"], 
+    form input[type="email"], 
+    form input[type="password"], 
+    form input[type="number"], 
+    form input[type="date"] {
+      background-color: #f9f9f9;
+    }
+
+    form button {
+      background: #1e88e5;
+      color: #fff;
+      padding: 10px 20px;
+      font-size: 16px;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+      flex: 1 1 100%;
+    }
+
+    form button:hover {
+      background: #1565c0;
+    }
+
+    table {
+      width: 90%;
+      margin: 20px auto;
+      border-collapse: collapse;
+      background: #ffffff;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    }
+
+    th, td {
+      padding: 12px 15px;
+      text-align: center;
+    }
+
+    th {
+      background: #1e88e5;
+      color: #fff;
+    }
+
+    tr:nth-child(even) {
+      background-color: #f9f9f9;
+    }
+
+    tr:hover {
+      background-color: #f1f1f1;
+    }
+
+    td {
+      border: 1px solid #ddd;
+    }
+
+    table button {
+      padding: 5px 10px;
+      font-size: 14px;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+
+    table button:nth-child(1) {
+      background: #f44336;
+      color: white;
+    }
+  </style>
+</head>
+<body>
+  <h1>Student Management</h1>
+
+  <!-- Add Student Form -->
+  <form id="addStudentForm">
+    <input type="text" name="name" placeholder="Name" required>
+    <input type="email" name="email" placeholder="Email" required>
+    <input type="password" name="password" placeholder="Password" required>
+    <input type="text" name="course" placeholder="Course" required>
+    <input type="number" name="year" placeholder="Year" required>
+    <input type="text" name="roll_number" placeholder="Roll Number" required>
+    <input type="text" name="course_code" placeholder="Course Code" required>
+    <input type="text" name="branch" placeholder="Branch" required>
+    <input type="text" name="carry_forward" placeholder="Carry Forward (yes/no)" required>
+    <input type="text" name="house_address" placeholder="House Address">
+    <input type="number" name="graduation_year" placeholder="Graduation Year">
+    <input type="text" name="academic_year" placeholder="Academic Year">
+    <input type="date" name="date_of_birth" placeholder="Date of Birth">
+    <input type="text" name="contact_number" placeholder="Contact Number">
+    <input type="text" name="gender" placeholder="Gender">
+    <button type="submit">Add Student</button>
+  </form>
+
+  <!-- Students Table -->
+  <table>
+    <thead>
+      <tr>
+        <th>Name</th>
+        <th>Email</th>
+        <th>Course</th>
+        <th>Year</th>
+        <th>Roll Number</th>
+        <th>Course Code</th>
+        <th>Branch</th>
+        <th>Carry Forward</th>
+        <th>Actions</th>
+      </tr>
+    </thead>
+    <tbody id="studentsTable"></tbody>
+  </table>
+
+  <script>
+    // Fetch and display students
+    async function fetchStudents() {
+      const response = await fetch("/students");
+      const students = await response.json();
+
+      const tableBody = document.getElementById("studentsTable");
+      tableBody.innerHTML = students.map(student => `
+        <tr>
+          <td>${student.name}</td>
+          <td>${student.email}</td>
+          <td>${student.course}</td>
+          <td>${student.year}</td>
+          <td>${student.roll_number}</td>
+          <td>${student.course_code}</td>
+          <td>${student.branch}</td>
+          <td>${student.carry_forward}</td>
+          <td>
+            <button onclick="deleteStudent('${student.email}')">Delete</button>
+          </td>
+        </tr>
+      `).join("");
+    }
+
+    // Add student
+    document.getElementById("addStudentForm").addEventListener("submit", async (e) => {
+      e.preventDefault();
+      const formData = new FormData(e.target);
+      const data = Object.fromEntries(formData.entries());
+
+      // Save to users1 table
+      const { email, password } = data;
+      await fetch("/users1", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ email, password }),
+      });
+
+      // Save student details
+      await fetch("/students", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(data),
+      });
+
+      e.target.reset();
+      fetchStudents();
+    });
+
+    // Delete student
+    async function deleteStudent(email) {
+      await fetch(`/students/${email}`, { method: "DELETE" });
+      fetchStudents();
+    }
+
+    // Initial load
+    fetchStudents();
+  </script>
+</body>
+</html>

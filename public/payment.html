@@ -1,0 +1,487 @@
+<!-- 
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Payment</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+            margin: 0;
+            background-color: #5a2bbf; 
+            background-image: linear-gradient(135deg, #5a2bbf 50%, #ffffff 50%);
+            overflow: hidden; 
+        }
+        .payment-container {
+            display: flex; 
+            align-items: center; 
+            justify-content: space-between; 
+            background-color: #ffffff; 
+            padding: 20px;
+            border-radius: 12px;
+            box-shadow: 0 0 15px rgba(0, 0, 0, 0.2);
+            max-width: 800px; 
+            width: 100%;
+            box-sizing: border-box;
+        }
+        .qr-section {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            margin-right: 20px;
+        }
+        .qr-section img {
+            width: 200px;
+            height: auto;
+            border-radius: 8px;
+        }
+        .text-section {
+            max-width: 400px;
+            text-align: left; 
+        }
+        .text-section h2 {
+            margin: 10px 0;
+            font-size: 24px;
+            color: #5a2bbf; 
+        }
+        .total-cost {
+            font-size: 18px;
+            font-weight: bold;
+            color: #d9534f;
+            margin: 10px 0;
+        }
+        input {
+            padding: 8px;
+            margin-top: 10px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+        }
+        button {
+            background-color: #5a2bbf;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            padding: 8px 16px;
+            font-size: 14px;
+            cursor: pointer;
+            margin-top: 10px;
+            text-transform: uppercase;
+        }
+        button:hover {
+            background-color: #4a2399;
+        }
+        .hidden {
+            display: none;
+        }
+    </style>
+</head>
+<body>
+    <div class="payment-container">
+        <div class="qr-section">
+            <img src="qrcode-fastscanner-android.png" alt="Scanner">
+        </div>
+        <div class="text-section">
+            <h2>Payment</h2>
+            <p class="total-cost">Total Cost: Rs <span id="final-cost"></span></p>
+            <p>Name: GradSure</p>
+            <p>UPI ID: GradSure@upi</p>
+            <div class="payment-instructions">
+                <p><strong>Instructions:</strong></p>
+                <p>1. Scan the QR code using your preferred UPI app.</p>
+                <p>2. Verify that the name and UPI ID match the above details.</p>
+                <p>3. Enter the payment amount and complete the transaction.</p>
+                <p>4. Once the payment is successful, you will receive a confirmation from your bank.</p>
+            </div>
+            <input type="number" id="payment-amount" placeholder="Enter Amount" />
+            <input type="text" id="roll-number-input" placeholder="Enter Roll Number" />
+            <button id="submit-payment">Submit Payment</button>
+            <p id="error-message" style="color: red; display: none;"></p>
+            <p id="payment-message" style="color: green;"></p>
+            <form action="login-options.html">
+                <button type="submit">Log Out</button>
+            </form>
+
+        </div>
+    </div>
+    
+    <script>
+       
+        const urlParams = new URLSearchParams(window.location.search);
+        const finalCost = urlParams.get('cost');
+        document.getElementById('final-cost').textContent = finalCost;
+
+        document.getElementById('submit-payment').addEventListener('click', () => {
+            const enteredAmount = parseFloat(document.getElementById('payment-amount').value);
+            const enteredRollNumber = document.getElementById('roll-number-input').value;
+            
+            if (enteredAmount !== parseFloat(finalCost)) {
+                document.getElementById('payment-message').textContent = "The entered amount does not match the total cost.";
+                return;
+            }
+
+         
+            fetch('/validate-roll-number', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({ enteredRollNumber }),
+                credentials: 'include'
+            })
+            .then(response => response.json())
+            .then(data => {
+                if (data.isValid) {
+                  
+                    fetch('/api/payments', {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json',
+                        },
+                        body: JSON.stringify({ cost: enteredAmount }),
+                        credentials: 'include'
+                    })
+                    .then(response => response.json())
+                    .then(result => {
+                        if (result.message) {
+                           
+                            window.location.href = 'admin_payment.html'; 
+                        } else {
+                            document.getElementById('payment-message').textContent = "Failed to record payment information.";
+                        }
+                    })
+                    .catch(error => {
+                        document.getElementById('payment-message').textContent = "An error occurred while submitting payment information.";
+                    });
+                } else {
+                  
+                    document.getElementById('error-message').textContent = data.message || "Invalid roll number.";
+                    document.getElementById('error-message').style.display = 'block';
+                }
+            })
+            .catch(error => {
+                console.error("Error validating roll number:", error);
+            });
+        });
+    </script>
+
+   
+</body>
+</html>
+
+ -->
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!-- 
+ <!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Mock Payment - GradSure</title>
+  <script src="https://checkout.razorpay.com/v1/checkout.js"></script>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 20px;
+      background-color: #f4f4f4;
+    }
+    h1, h3 {
+      color: #333;
+    }
+    .btn {
+      background-color: #007BFF;
+      color: white;
+      border: none;
+      padding: 10px 20px;
+      cursor: pointer;
+      margin-top: 20px;
+    }
+    .btn:hover {
+      background-color: #0056b3;
+    }
+  </style>
+</head>
+<body>
+  <h1>Mock Payment</h1>
+  <h3>Total Amount: ₹<span id="total-cost"></span></h3>
+  <button class="btn" id="pay-button">Proceed to Mock Payment</button>
+
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      // Fetch total cost from URL
+      const urlParams = new URLSearchParams(window.location.search);
+      const totalCost = urlParams.get('cost');
+
+      if (!totalCost) {
+        alert("Total cost not found. Redirecting back to exam registration.");
+        window.location.href = "exam-registration.html";
+        return;
+      }
+
+      // Display total cost
+      document.getElementById('total-cost').textContent = totalCost;
+
+      // Payment handler
+      document.getElementById('pay-button').addEventListener('click', async () => {
+        try {
+          // Create order from backend
+          const response = await fetch('/create-order', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ amount: totalCost }),
+          });
+          const orderData = await response.json();
+
+          if (!orderData || !orderData.orderId) {
+            alert("Failed to create order. Please try again.");
+            return;
+          }
+
+          // Razorpay options
+          const options = {
+            key: "rzp_test_yebQCZ4L7mdvsi", // Replace with your test key_id
+            amount: orderData.amount, // Amount in paise
+            currency: orderData.currency,
+            name: "GradSure Mock Payment",
+            description: "This is a mock payment. No real transaction will occur.",
+            image: "https://example.com/logo.png", // Optional: Add your logo
+            order_id: orderData.orderId, // Order ID from backend
+            handler: function (response) {
+              alert(`Payment simulated successfully!\nPayment ID: ${response.razorpay_payment_id}`);
+              console.log("Mock Payment Response:", response);
+              window.location.href = "success.html"; // Redirect on success
+            },
+            theme: {
+              color: "#007BFF",
+            },
+          };
+
+          const paymentObject = new Razorpay(options);
+          paymentObject.open();
+        } catch (error) {
+          alert("An error occurred while processing the payment.");
+          console.error("Payment error:", error);
+        }
+      });
+    });
+  </script>
+</body>
+</html>
+ -->
+
+
+
+
+
+
+
+
+
+
+
+
+
+ <!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Mock Payment - GradSure</title>
+  <script src="https://checkout.razorpay.com/v1/checkout.js"></script>
+  <style>
+    /* General Page Styling */
+    body {
+      font-family: 'Arial', sans-serif;
+      margin: 0;
+      background-color: #f9f9f9;
+      color: #333;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+    }
+
+    /* Container for Payment Content */
+    .container {
+      background-color: #ffffff;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+      border-radius: 12px;
+      padding: 30px;
+      width: 100%;
+      max-width: 400px;
+      text-align: center;
+    }
+
+    h1 {
+      color: #2c3e50;
+      margin-bottom: 10px;
+      font-size: 28px;
+    }
+
+    h3 {
+      color: #555;
+      font-weight: normal;
+      margin-bottom: 20px;
+      font-size: 20px;
+    }
+
+    p {
+      font-size: 16px;
+      color: #777;
+      margin-bottom: 25px;
+    }
+
+    /* Payment Button Styling */
+    .btn {
+      background-color: #007BFF;
+      color: white;
+      border: none;
+      padding: 12px 20px;
+      font-size: 16px;
+      border-radius: 8px;
+      cursor: pointer;
+      transition: background-color 0.3s ease;
+    }
+
+    .btn:hover {
+      background-color: #0056b3;
+    }
+
+    /* Payment Note Styling */
+    .note {
+      color: #777;
+      font-size: 14px;
+      margin-top: 20px;
+      line-height: 1.5;
+    }
+
+    .logo {
+      margin-bottom: 15px;
+    }
+
+    /* Optional Logo Styling */
+    .logo img {
+      width: 80px;
+    }
+
+    /* Footer */
+    .footer {
+      margin-top: 20px;
+      font-size: 12px;
+      color: #aaa;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <!-- Optional Logo -->
+    <div class="logo">
+      <img src="gradsure-high-resolution-logo.png" alt="GradSure Logo">
+    </div>
+
+    <h1>Payment</h1>
+    <h3>Total Amount: ₹<span id="total-cost"></span></h3>
+    <p>
+      You are about to proceed to payment. 
+    </p>
+    <button class="btn" id="pay-button">Proceed to Payment</button>
+
+    <p class="note">
+      Please ensure you have verified the total amount displayed above. <br>
+      After successful payment simulation, you will be redirected to the confirmation page.
+    </p>
+
+    <div class="footer">
+      Powered by GradSure | Secure Mock Transactions
+    </div>
+  </div>
+
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      // Fetch total cost from URL
+      const urlParams = new URLSearchParams(window.location.search);
+      const totalCost = urlParams.get('cost');
+
+      if (!totalCost) {
+        alert("Total cost not found. Redirecting back to exam registration.");
+        window.location.href = "exam-registration.html";
+        return;
+      }
+
+      // Display total cost
+      document.getElementById('total-cost').textContent = totalCost;
+
+      // Payment handler
+      document.getElementById('pay-button').addEventListener('click', async () => {
+        try {
+          // Create order from backend
+          const pay = await fetch('/payments')
+          // const paydata = await pay.json();
+          console.log(pay);
+          const response = await fetch('/create-order', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ amount: totalCost }),
+          });
+          const orderData = await response.json();
+
+          if (!orderData || !orderData.orderId) {
+            alert("Failed to create order. Please try again.");
+            return;
+          }
+
+          // Razorpay options
+          const options = {
+            key: "rzp_test_yebQCZ4L7mdvsi", // Replace with your test key_id
+            amount: orderData.amount, // Amount in paise
+            currency: orderData.currency,
+            name: "GradSure Mock Payment",
+            description: "This is a mock payment. No real transaction will occur.",
+            image: "https://example.com/logo.png", // Optional: Add your logo
+            order_id: orderData.orderId, // Order ID from backend
+            handler: function (response) {
+              alert(`Payment simulated successfully!\nPayment ID: ${response.razorpay_payment_id}`);
+              console.log("Mock Payment Response:", response);
+              window.location.href = "success.html"; // Redirect on success
+            },
+            theme: {
+              color: "#007BFF",
+            },
+          };
+
+          const paymentObject = new Razorpay(options);
+          paymentObject.open();
+        } catch (error) {
+          alert("An error occurred while processing the payment.");
+          console.error("Payment error:", error);
+        }
+      });
+    });
+  </script>
+</body>
+</html>

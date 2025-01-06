@@ -1,0 +1,215 @@
+<!-- <!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Student Profile</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            padding: 20px;
+        }
+        .profile {
+            margin-bottom: 20px;
+        }
+    </style>
+</head>
+<body>
+
+    <h1>Student Profile</h1>
+    <div class="profile" id="profile"></div>
+    
+    <script>
+        // Function to fetch student basic info and details
+        async function fetchStudentProfile() {
+            try {
+                // Fetch basic student info
+                const response = await fetch('/exam-registration');
+                if (!response.ok) {
+                    throw new Error("Error fetching student basic info");
+                }
+                const studentData = await response.json();
+
+                // Fetch student details
+                const detailsResponse = await fetch('/student-details');
+                if (!detailsResponse.ok) {
+                    throw new Error("Error fetching student details");
+                }
+                const studentDetails = await detailsResponse.json();
+
+                // Display student profile data
+                const profileDiv = document.getElementById('profile');
+                profileDiv.innerHTML = `
+                    <p><strong>Name:</strong> ${studentData.student.name}</p>
+                    <p><strong>Branch:</strong> ${studentData.student.branch}</p>
+                    <p><strong>Email:</strong> ${studentData.student.email}</p>
+                    <p><strong>Roll Number:</strong> ${studentData.student.roll_number}</p>
+                    <p><strong>Graduation Year:</strong> ${studentDetails.graduation_year}</p>
+                    <p><strong>Failed Courses:</strong> ${studentData.failedCourses.join(', ')}</p>
+                `;
+            } catch (error) {
+                console.error(error);
+                document.getElementById('profile').innerText = 'Failed to load student profile. Please try again later.';
+            }
+        }
+
+        // Call the function to fetch and display the student profile
+        fetchStudentProfile();
+    </script>
+
+</body>
+</html> -->
+
+
+
+<!-- 
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Student Profile</title>
+    <link rel="stylesheet" href="student-profile.css">
+    
+</head>
+<body>
+
+    <h1>Student Profile</h1>
+    <div class="profile" id="profile"></div>
+    
+    <script>
+        // Function to fetch student basic info and details
+        async function fetchStudentProfile() {
+            try {
+                // Fetch basic student info
+                const response = await fetch('/exam-registration');
+                if (!response.ok) {
+                    throw new Error("Error fetching student basic info");
+                }
+                const studentData = await response.json();
+
+                // Fetch student details
+                const detailsResponse = await fetch('/student-details');
+                if (!detailsResponse.ok) {
+                    throw new Error("Error fetching student details");
+                }
+                const studentDetails = await detailsResponse.json();
+
+                // Display student profile data
+                const profileDiv = document.getElementById('profile');
+                profileDiv.innerHTML = `
+                    <p><strong>Name:</strong> ${studentData.student.name}</p>
+                    <p><strong>Branch:</strong> ${studentData.student.branch}</p>
+                    <p><strong>Email:</strong> ${studentData.student.email}</p>
+                    <p><strong>Roll Number:</strong> ${studentData.student.roll_number}</p>
+                    <p><strong>Graduation Year:</strong> ${studentDetails.graduation_year}</p>
+                    <p><strong>House Address:</strong> ${studentDetails.house_address}</p>
+                    <p><strong>Academic Year:</strong> ${studentDetails.academic_year}</p>
+                    <p><strong>Date of Birth:</strong> ${studentDetails.date_of_birth}</p>
+                    <p><strong>Contact Number:</strong> ${studentDetails.contact_number}</p>
+                    <p><strong>Gender:</strong> ${studentDetails.gender}</p>
+                    <p><strong>Failed Courses:</strong> ${studentData.failedCourses.join(', ')}</p>
+                `;
+            } catch (error) {
+                console.error(error);
+                document.getElementById('profile').innerText = 'Failed to load student profile. Please try again later.';
+            }
+        }
+
+        // Call the function to fetch and display the student profile
+        fetchStudentProfile();
+    </script>
+
+</body>
+</html> -->
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Student Profile</title>
+    <link rel="stylesheet" href="student-profile.css">
+</head>
+<body>
+
+    <h1>GRADSURE</h1>
+    <div class="container">
+        <div class="profile" id="profile"></div>
+        <button class="dashboard-button" onclick="location.href='Dashboard_student.html'">Go To Dashboard</button>
+
+
+    </div>
+
+    <script>
+        // Function to fetch student basic info and details
+        async function fetchStudentProfile() {
+            try {
+                // Fetch basic student info
+                const response = await fetch('/exam-registration');
+                if (!response.ok) {
+                    throw new Error("Error fetching student basic info");
+                }
+                const studentData = await response.json();
+
+                // Fetch student details
+                const detailsResponse = await fetch('/student-details');
+                if (!detailsResponse.ok) {
+                    throw new Error("Error fetching student details");
+                }
+                const studentDetails = await detailsResponse.json();
+
+                // Display student profile data
+                const profileDiv = document.getElementById('profile');
+                profileDiv.innerHTML = `
+                    <div class="info-box">
+                        <p><strong>Name:</strong> ${studentData.student.name}</p>
+                        <p><strong>Branch:</strong> ${studentData.student.branch}</p>
+                        <p><strong>Email:</strong> ${studentData.student.email}</p>
+                        <p><strong>Roll Number:</strong> ${studentData.student.roll_number}</p>
+                    </div>
+                    <div class="info-box">
+                        <p><strong>Graduation Year:</strong> ${studentDetails.graduation_year}</p>
+                        <p><strong>House Address:</strong> ${studentDetails.house_address}</p>
+                        <p><strong>Academic Year:</strong> ${studentDetails.academic_year}</p>
+                        <p><strong>Date of Birth:</strong> ${studentDetails.date_of_birth}</p>
+                        <p><strong>Contact Number:</strong> ${studentDetails.contact_number}</p>
+                        <p><strong>Gender:</strong> ${studentDetails.gender}</p>
+                    </div>
+                    <div class="info-box failed-courses">
+                        <p><strong>Failed Courses:</strong> ${studentData.failedCourses.join(', ')}</p>
+                    </div>
+                `;
+            } catch (error) {
+                console.error(error);
+                document.getElementById('profile').innerText = 'Failed to load student profile. Please try again later.';
+            }
+        }
+
+        // Call the function to fetch and display the student profile
+        fetchStudentProfile();
+    </script>
+
+</body>
+</html>
